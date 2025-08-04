@@ -1,0 +1,170 @@
+[
+  {
+    "pregunta": "¿Su empresa está actualmente matriculada en el Registro de Comercio?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Su empresa ha actualizado oportunamente su Matrícula de Comercio?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Ha realizado la actualización de la Matrícula de Comercio dentro del plazo establecido?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Exhibe su empresa la Matrícula de Comercio actualizada en un lugar visible?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Ha inscrito todos los actos, contratos y documentos exigidos en el Registro de Comercio?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Ha actualizado los datos de su empresa en el Registro de Comercio cuando ha sido necesario?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Lleva su empresa una contabilidad formal y actualizada?",
+    "categoria": "Contable"
+  },
+  {
+    "pregunta": "¿Cuenta su empresa con los libros contables obligatorios?",
+    "categoria": "Contable"
+  },
+  {
+    "pregunta": "¿Dispone su empresa de los libros corporativos obligatorios?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Es su contabilidad llevada por personas legalmente autorizadas?",
+    "categoria": "Contable"
+  },
+  {
+    "pregunta": "¿Se cumplen las formalidades requeridas en los libros contables y corporativos?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Cuenta con autorización para utilizar medios electrónicos o mecánicos para sus libros?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Está su contabilidad registrada en idioma español y en moneda nacional?",
+    "categoria": "Contable"
+  },
+  {
+    "pregunta": "¿Está libre su contabilidad de alteraciones no justificadas?",
+    "categoria": "Contable"
+  },
+  {
+    "pregunta": "¿Se cumple con las condiciones establecidas para los registros en los libros Diario y Mayor?",
+    "categoria": "Contable"
+  },
+  {
+    "pregunta": "¿Aplica su empresa criterios uniformes y revelados para la valorización de partidas de balance?",
+    "categoria": "Contable"
+  },
+  {
+    "pregunta": "¿Están firmados sus estados financieros por los responsables correspondientes?",
+    "categoria": "Contable"
+  },
+  {
+    "pregunta": "¿Su empresa archiva adecuadamente la correspondencia comercial?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Conserva su empresa los libros, papeles de comercio y correspondencia durante el tiempo legal requerido?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Han sido auditados sus estados financieros por una firma externa autorizada?",
+    "categoria": "Contable"
+  },
+  {
+    "pregunta": "¿Su empresa mantiene una única contabilidad?",
+    "categoria": "Contable"
+  },
+  {
+    "pregunta": "¿Publica su empresa los documentos requeridos en la Gaceta Electrónica del Registro de Comercio?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Cumplen los aportes de socios o accionistas con los requisitos legales?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Se realiza la distribución de utilidades y el tratamiento de pérdidas acumuladas conforme a la normativa?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Ha constituido su empresa la reserva legal exigida?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Está debidamente registrado el contenido en el Libro de Registro de Socios?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Celebra su empresa asambleas anuales ordinarias dentro del plazo establecido?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Se cumple con el quórum legal en las asambleas o juntas de accionistas?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Está correctamente registrado el contenido en el Libro de Registro de Acciones?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿La Junta General Ordinaria de Accionistas se realiza dentro del plazo legal?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Se convoca a la Junta General Ordinaria para tratar los puntos del art. 285 del Código de Comercio?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Los temas tratados en las Juntas Generales están dentro de la competencia legal de la asamblea?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Se cumplen las formalidades para convocar a asambleas o juntas de accionistas?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Quienes convocan a las asambleas tienen la competencia legal para hacerlo?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Los asuntos tratados en las juntas de accionistas se ajustan a la normativa vigente?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿La composición del Directorio cumple con los requisitos legales?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿La elección de los miembros del Directorio fue realizada legalmente?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Publica su empresa la memoria anual (en caso de ser Sociedad Anónima)?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Están constituidas las fianzas de los Directores y Síndicos cuando corresponde?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Han sido designados los Directores en representación de los accionistas minoritarios?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿La elección de los Síndicos fue realizada conforme a la normativa?",
+    "categoria": "Comercial"
+  },
+  {
+    "pregunta": "¿Se ha cumplido con la reducción de capital cuando ha sido obligatoria?",
+    "categoria": "Comercial"
+  }
+] 

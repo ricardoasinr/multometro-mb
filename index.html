@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multómetro Challenge - Calculadora de Multas AEMP</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Página de Bienvenida -->
+    <div id="welcome-page" class="page active">
+        <div class="container">
+            <div class="welcome-content">
+                <div class="welcome-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <h1>🎯 Bienvenido a Multómetro Challenge</h1>
+                <p class="welcome-subtitle">
+                    📊 Herramienta de cálculo estimado de multas basado en el Reglamento de Sanciones e
+                    Infracciones Comerciales y Contables (Resolución RA/AEMP/Nº009/2021)
+                </p>
+                
+                <div class="feature-section">
+                    <h3>🚀 Esta herramienta te ayuda a:</h3>
+                    <ul class="feature-list">
+                        <li>💰 Estimar cuánto podría costarte una infracción según la Resolución RA/AEMP/Nº009/2021.</li>
+                        <li>📚 Entender mejor las reglas de la Autoridad de Fiscalización de Empresas (AEMP).</li>
+                        <li>🛡️ Prevenir riesgos antes de que se conviertan en multas.</li>
+                    </ul>
+                </div>
+
+                <div class="how-it-works">
+                    <h3>⚡ Funciona así de fácil:</h3>
+                    <ol class="steps-list">
+                        <li>1️⃣ Elige el tipo de infracción.</li>
+                        <li>2️⃣ Ingresa los datos que te pide el sistema (tipo de sociedad, base de cálculo).</li>
+                        <li>3️⃣ Descubre cuál sería la sanción aproximada según la AEMP.</li>
+                    </ol>
+                </div>
+
+                <div class="important-notice">
+                    <div class="notice-header">
+
+                        <strong>⚠️¡Importante: Esto es solo una guía</strong>
+                    </div>
+                    <ul class="notice-list">
+                        <li>📋 Los resultados son estimados en función a su evaluación de infracciones.</li>
+                        <li>📄 No es un documento oficial ni reemplaza lo que establezca el ente regulador.</li>
+                        <li>👨‍💼 Para temas serios, siempre consulta a un experto o a la autoridad.</li>
+                    </ul>
+                </div>
+
+                <div class="remember-section">
+                    <h3>💡 Recuerda:</h3>
+                    <ul class="remember-list">
+                        <li>⚠️ Más vale prevenir que lamentar.</li>
+                        <li>🤝 Puedes contactarnos para un asesoramiento integral:</li>
+                    </ul>
+                
+                </div>
+
+                <button class="btn btn-primary" onclick="nextPage()">
+                    🎯 Comenzar
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+
+                <p class="final-message">🎉 ¡Usa esta herramienta para aprender y evitar sorpresas!</p>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Página del Formulario -->
+    <div id="form-page" class="page">
+        <div class="container">
+            <div class="form-content">
+                <div class="back-button">
+                    <button class="btn btn-secondary" onclick="prevPage()">
+                        <i class="fas fa-arrow-left"></i>
+                        Atrás
+                    </button>
+                </div>
+
+                <div class="form-header">
+                    <div class="form-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <h2>Formulario de Registro</h2>
+                    <p>Por favor, completa la siguiente información</p>
+                </div>
+
+                <form id="registration-form" class="registration-form">
+                    <div class="form-group">
+                        <label for="fullName">
+                            <i class="fas fa-user"></i>
+                            Nombre y Apellidos *
+                        </label>
+                        <input 
+                            type="text" 
+                            id="fullName" 
+                            name="fullName" 
+                            required 
+                            placeholder="Ej: Juan Pérez García"
+                        >
+                        <span class="error-message" id="fullName-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company">
+                            <i class="fas fa-building"></i>
+                            Empresa *
+                        </label>
+                        <input 
+                            type="text" 
+                            id="company" 
+                            name="company" 
+                            required 
+                            placeholder="Ej: Tecnológica S.A."
+                        >
+                        <span class="error-message" id="company-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="position">
+                            <i class="fas fa-briefcase"></i>
+                            Cargo *
+                        </label>
+                        <input 
+                            type="text" 
+                            id="position" 
+                            name="position" 
+                            required 
+                            placeholder="Ej: Gerente de Ventas"
+                        >
+                        <span class="error-message" id="position-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">
+                            <i class="fas fa-envelope"></i>
+                            Email *
+                        </label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            required 
+                            placeholder="Ej: juan.perez@empresa.com"
+                        >
+                        <span class="error-message" id="email-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">
+                            <i class="fas fa-phone"></i>
+                            Teléfono *
+                        </label>
+                        <input 
+                            type="tel" 
+                            id="phone" 
+                            name="phone" 
+                            required 
+                            placeholder="Ej: +34 600 123 456"
+                        >
+                        <span class="error-message" id="phone-error"></span>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-submit">
+                            <i class="fas fa-paper-plane"></i>
+                            Continuar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Página de Configuración de Empresa -->
+    <div id="company-config-page" class="page">
+        <div class="container">
+            <div class="company-config-content">
+                <div class="back-button">
+                    <button class="btn btn-secondary" onclick="prevPage()">
+                        <i class="fas fa-arrow-left"></i>
+                        Atrás
+                    </button>
+                </div>
+
+                <div class="config-header">
+                    <div class="config-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h2>Configuración de Empresa</h2>
+                    <p>Configura los parámetros de tu empresa para una evaluación precisa</p>
+                </div>
+
+                <div class="company-configuration">
+                    <div class="config-group">
+                        <label for="company-type">
+                            <i class="fas fa-building"></i>
+                            Tipo de Sociedad
+                        </label>
+                        <div class="select-wrapper">
+                            <select id="company-type" name="company-type" required>
+                                <option value="">Selecciona el tipo de sociedad</option>
+                                <option value="empresa-unipersonal">Empresa Unipersonal</option>
+                                <option value="srl">Sociedad de Responsabilidad Limitada</option>
+                                <option value="colectiva-comandita">Sociedad Colectiva y Comandita Simple</option>
+                                <option value="anonima-mixta">Sociedad Anónima, Comandita por Acciones, Sociedad Anónima Mixta y Sociedades constituidas en el Extranjero</option>
+                            </select>
+                            <i class="fas fa-chevron-down select-arrow"></i>
+                        </div>
+                    </div>
+
+                    <div class="config-group">
+                        <label for="calculation-base">
+                            <i class="fas fa-calculator"></i>
+                            Base de Cálculo
+                        </label>
+                        <div class="select-wrapper">
+                            <select id="calculation-base" name="calculation-base" required>
+                                <option value="">Selecciona la base de cálculo</option>
+                                <option value="utilidad-bruta">Utilidad Bruta</option>
+                                <option value="capital">Capital</option>
+                            </select>
+                            <i class="fas fa-chevron-down select-arrow"></i>
+                        </div>
+                    </div>
+
+                    <div class="config-group">
+                        <label for="base-amount">
+                            <i class="fas fa-money-bill-wave"></i>
+                            MONTO BASE DE CÁLCULO (Bs.)
+                        </label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="number" 
+                                id="base-amount" 
+                                name="base-amount" 
+                                required 
+                                placeholder="Ej: 50000"
+                                min="0"
+                                step="0.01"
+                            >
+                            <i class="fas fa-boliviano input-icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="config-actions">
+                        <button id="continue-btn" class="btn btn-primary btn-submit" onclick="validateAndContinue()" disabled>
+                            <i class="fas fa-arrow-right"></i>
+                            Continuar al Multómetro
+                        </button>
+                        <p class="requirement-text">Completa todos los campos obligatorios (*) para continuar</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Página de Progreso -->
+    <div id="progress-page" class="page">
+        <div class="container">
+            <div class="progress-content">
+                <div class="processing-icon">
+                    <i class="fas fa-cog fa-spin"></i>
+                </div>
+                <h2>Configurar Evaluación</h2>
+                <p class="processing-message">
+                    Selecciona el porcentaje de preguntas para tu evaluación
+                </p>
+
+                <!-- Selector Principal de Porcentaje -->
+                <div class="percentage-selector">
+                    <h3>Selecciona el porcentaje de evaluación</h3>
+                    <div class="percentage-input-group">
+                        <label for="target-percentage">Porcentaje objetivo:</label>
+                        <div class="percentage-input-container">
+                            <input type="range" id="target-percentage" min="1" max="100" value="75" class="percentage-slider">
+                            <div class="percentage-value">
+                                <span id="target-value">75</span>%
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="quick-percentages">
+                        <span>Valores rápidos:</span>
+                        <button class="btn btn-percentage" onclick="setTargetPercentage(25)">25%</button>
+                        <button class="btn btn-percentage" onclick="setTargetPercentage(50)">50%</button>
+                        <button class="btn btn-percentage" onclick="setTargetPercentage(75)">75%</button>
+                        <button class="btn btn-percentage" onclick="setTargetPercentage(100)">100%</button>
+                    </div>
+                    
+                    <button class="btn btn-primary btn-start" onclick="startProgressAnimation()">
+                        <i class="fas fa-play"></i>
+                        Iniciar Cuestionario
+                    </button>
+                </div>
+
+                <!-- Componente de Progreso Personalizable -->
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Página de Preguntas -->
+    <div id="questions-page" class="page">
+        <div class="container">
+            <div class="questions-content">
+                <div class="questions-header">
+                    <div class="questions-icon">
+                        <i class="fas fa-clipboard-question"></i>
+                    </div>
+                    <h2>Multómetro</h2>
+                    <div class="question-counter">
+                        Pregunta <span id="question-number">1</span> de <span id="question-total">10</span>
+                    </div>
+                </div>
+
+                <div class="question-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="questions-progress-fill"></div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-category">
+                        <span class="category-badge" id="question-category">Comercial</span>
+                    </div>
+                    <div class="question-text" id="current-question">
+                        ¿Su empresa está actualmente matriculada en el Registro de Comercio?
+                    </div>
+                    
+                    <div class="answer-options">
+                        <label class="answer-option answer-yes">
+                            <input type="radio" name="answer" value="yes" onchange="answerQuestion('yes')">
+                            <div class="option-content">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Sí</span>
+                            </div>
+                        </label>
+                        
+                        <label class="answer-option answer-no">
+                            <input type="radio" name="answer" value="no" onchange="answerQuestion('no')">
+                            <div class="option-content">
+                                <i class="fas fa-times-circle"></i>
+                                <span>No</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Página de Confirmación -->
+    <div id="success-page" class="page">
+        <div class="container">
+            <div class="success-content">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2>¡Cuestionario Completado!</h2>
+                <p class="success-message">
+                    Gracias por completar el cuestionario. Has evaluado tu situación con el Multómetro.
+                </p>
+                <p class="success-note">
+                    Los resultados mostrados son una estimación basada en tus respuestas.
+                </p>
+                <button class="btn btn-primary" onclick="restartForm()">
+                    <i class="fas fa-redo"></i>
+                    Realizar nueva evaluación
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Indicator -->
+    <div class="progress-container">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="progress-steps">
+            <div class="step active" id="step-1">1</div>
+            <div class="step" id="step-2">2</div>
+            <div class="step" id="step-3">3</div>
+            <div class="step" id="step-4">4</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

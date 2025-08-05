@@ -374,6 +374,8 @@ function handleFormSubmit(e) {
             
             // Mostrar en consola (en producción se enviaría al servidor)
             console.log('Datos del formulario:', data);
+            // Guardar email del usuario para envío de reporte
+            userData.email = data.email;
             
             // Mostrar página de progreso
             nextPage();
@@ -1315,9 +1317,31 @@ function generarReportePDF() {
                 yPos += 8;
             });
             
-            // Guardar el PDF
+            // Enviar PDF sin descargar al endpoint
             const fileName = `Reporte_Multometro_${new Date().toISOString().slice(0, 10)}.pdf`;
-            doc.save(fileName);
+            const blob = doc.output('blob');
+            const pdfFile = new File([blob], fileName, { type: 'application/pdf' });
+            const email = userData.email;
+            if (email) {
+                const formData = new FormData();
+                formData.append('email', email);
+                formData.append('pdf', pdfFile);
+                fetch('https://apigmail-lunw.onrender.com/send-email', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(res => res.json())
+                .then(result => {
+                    if (result.success) {
+                        console.log('Email enviado exitosamente');
+                    } else {
+                        console.error('Error al enviar email:', result.error || 'Desconocido');
+                    }
+                })
+                .catch(error => console.error('Error en envío de PDF:', error));
+            } else {
+                console.log('Envío cancelado: no se proporcionó correo');
+            }
             
             console.log('Reporte PDF generado con éxito:', fileName);
             return true;

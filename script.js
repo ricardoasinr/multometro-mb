@@ -1161,9 +1161,6 @@ function updateSuccessPageWithResults(yesAnswers, noAnswers) {
                         <span class="stat-label">Total</span>
                     </div>
                 </div>
-                <p class="multimeter-percentage">
-                    Evaluación Multómetro: ${Math.round((yesAnswers / selectedQuestions.length) * 100)}%
-                </p>
             </div>
         `;
     }

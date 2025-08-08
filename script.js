@@ -9,6 +9,16 @@ const pages = [
     'success-page'
 ];
 
+// Datos recolectados del usuario
+let userData = {
+    tipoSociedad: '',
+    baseCalculo: 0,
+    montoBaseCalculo: 0,
+    rango: '',
+    factor: 0,
+    multaTotal: 0
+};
+
 // Variables para el componente de progreso
 let progressInterval = null;
 let currentProgress = 0;
@@ -20,6 +30,71 @@ let allQuestions = [];
 let selectedQuestions = [];
 let currentQuestionIndex = 0;
 let questionAnswers = [];
+
+// Función para calcular multa según tipo de pregunta
+function calcularMulta(pregunta, respuesta) {
+    if (respuesta !== 'no') return 0;
+    
+    const nro = pregunta.nro;
+    
+    // Preguntas especiales 1-4
+    if (nro >= 1 && nro <= 4) {
+        return calcularMultaEspecial(nro);
+    }
+    
+    // Preguntas normales 5-42 con valores por rango
+    if (pregunta.values && pregunta.values[userData.rango]) {
+        const valorPorcentual = pregunta.values[userData.rango];
+        console.log('Calculando multa para pregunta:', nro, 'con valor:', valorPorcentual);
+        const baseCalculo = parseFloat(userData.baseCalculo);
+        console.log('Base de cálculo:', baseCalculo, 'Monto base:', userData.montoBaseCalculo);
+        // Calcular multa
+        const multa = baseCalculo * userData.montoBaseCalculo * valorPorcentual;
+        userData.multaTotal += multa;
+        console.log('Multa calculada:', multa);
+        return multa;
+    }
+    
+    return 0;
+}
+
+// Función para preguntas especiales (1-4)
+function calcularMultaEspecial(nro) {
+    switch(nro) {
+        case 1:
+            return 16000;
+        
+        case 2:
+            const valores2 = {
+                'empresa-unipersonal': 2200,
+                'srl': 3200,
+                'colectiva-comandita': 3200,
+                'anonima-mixta': 4200
+            };
+            return valores2[userData.tipoSociedad] || 0;
+        
+        case 3:
+            const valores3 = {
+                'empresa-unipersonal': 1100,
+                'srl': 1600,
+                'colectiva-comandita': 1600,
+                'anonima-mixta': 2100
+            };
+            return valores3[userData.tipoSociedad] || 0;
+        
+        case 4:
+            const valores4 = {
+                'empresa-unipersonal': 200,
+                'srl': 400,
+                'colectiva-comandita': 400,
+                'anonima-mixta': 600
+            };
+            return valores4[userData.tipoSociedad] || 0;
+        
+        default:
+            return 0;
+    }
+}
 
 // Inicialización cuando se carga la página
 document.addEventListener('DOMContentLoaded', function() {
@@ -43,6 +118,34 @@ function nextPage() {
             if (!companyType.value || !calculationBase.value || !baseAmount.value || parseFloat(baseAmount.value) <= 0 || (continueBtn && continueBtn.disabled)) {
                 showConfigurationError('Debes completar todos los campos obligatorios antes de continuar');
                 return; // Bloquear navegación
+            }
+            
+            // Recolectar datos de configuración de empresa
+            userData.tipoSociedad = companyType.value;
+            console.log("calculation base:", calculationBase.value);
+            userData.baseCalculo = calculationBase.value === 'utilidad-bruta' ? 1 : 0.8;
+            userData.montoBaseCalculo = parseFloat(baseAmount.value);
+            
+            // Determinar rango y factor
+            const monto = userData.montoBaseCalculo;
+            if (monto <= 10000000) {
+                userData.rango = 'A';
+                userData.factor = 5;
+            } else if (monto <= 20000000) {
+                userData.rango = 'B';
+                userData.factor = 4;
+            } else if (monto <= 40000000) {
+                userData.rango = 'C';
+                userData.factor = 3;
+            } else if (monto <= 80000000) {
+                userData.rango = 'D';
+                userData.factor = 2;
+            } else if (monto <= 160000000) {
+                userData.rango = 'E';
+                userData.factor = 1;
+            } else {
+                userData.rango = 'F';
+                userData.factor = 0.5;
             }
         }
         
@@ -271,6 +374,8 @@ function handleFormSubmit(e) {
             
             // Mostrar en consola (en producción se enviaría al servidor)
             console.log('Datos del formulario:', data);
+            // Guardar email del usuario para envío de reporte
+            userData.email = data.email;
             
             // Mostrar página de progreso
             nextPage();
@@ -908,6 +1013,7 @@ function selectRandomQuestions(percentage) {
 function startQuestionnaire() {
     currentQuestionIndex = 0;
     questionAnswers = [];
+    userData.multaTotal = 0; // Reiniciar contador de multas
     console.log('Iniciando cuestionario. Preguntas seleccionadas:', selectedQuestions.length);
     displayCurrentQuestion();
     updateQuestionsProgress();
@@ -961,10 +1067,20 @@ function answerQuestion(answer) {
     }
     
     const question = selectedQuestions[currentQuestionIndex];
+    
+    // Calcular multa si la respuesta es "no"
+    const multa = calcularMulta(question, answer);
+    if (multa > 0) {
+        userData.multaTotal += multa;
+        console.log(`Pregunta ${question.nro}: Multa de $${multa.toFixed(2)} - Total acumulado: $${userData.multaTotal.toFixed(2)}`);
+    }
+    
     questionAnswers.push({
         question: question.pregunta,
         category: question.categoria,
-        answer: answer
+        answer: answer,
+        values: question.values,
+        multa: multa
     });
     
     console.log('Respuesta guardada. Total respuestas:', questionAnswers.length);
@@ -1051,4 +1167,257 @@ function updateSuccessPageWithResults(yesAnswers, noAnswers) {
             </div>
         `;
     }
-} 
+    
+    // Mostrar todos los datos recolectados al final de la encuesta
+    console.log('Configuración de empresa:', userData);
+    console.log('Respuestas del cuestionario:', {
+        totalPreguntas: selectedQuestions.length,
+        respuestasSi: yesAnswers,
+        respuestasNo: noAnswers,
+        porcentajeCompliance: Math.round((yesAnswers / selectedQuestions.length) * 100),
+        multaTotal: userData.multaTotal
+    });
+    console.log('Detalle de multas por pregunta:', questionAnswers.filter(q => q.multa > 0).map(q => ({
+        pregunta: q.question,
+        respuesta: q.answer,
+        multa: q.multa
+    })));
+}
+
+// Generar reporte PDF
+function generarReportePDF() {
+    // Función para generar el PDF
+    function generarPDF() {
+        try {
+            console.log('Intentando generar PDF con jsPDF...');
+            let doc;
+            
+            // Intentar diferentes formas de acceder a jsPDF
+            if (window.jspdf && window.jspdf.jsPDF) {
+                console.log('Usando jspdf.jsPDF');
+                doc = new window.jspdf.jsPDF();
+            } else if (window.jsPDF && typeof window.jsPDF === 'function') {
+                console.log('Usando jsPDF directamente');
+                doc = new window.jsPDF();
+            } else if (window.jsPDF && window.jsPDF.jsPDF) {
+                console.log('Usando jsPDF.jsPDF');
+                const { jsPDF } = window.jsPDF;
+                doc = new jsPDF();
+            } else {
+                throw new Error('No se pudo encontrar jsPDF en el ámbito global');
+            }
+            
+            // Configuración del documento
+            doc.setFontSize(20);
+            doc.setTextColor(44, 62, 80);
+            doc.text('REPORTE MULTOMETRO CHALLENGE', 20, 25);
+            
+            doc.setFontSize(12);
+            doc.setTextColor(127, 140, 141);
+            doc.text('Reporte generado el: ' + new Date().toLocaleDateString('es-ES'), 20, 35);
+            
+            // Línea separadora
+            doc.setLineWidth(0.5);
+            doc.setDrawColor(189, 195, 199);
+            doc.line(20, 40, 190, 40);
+            
+            let yPos = 55;
+            
+            // Información de la empresa
+            doc.setFontSize(16);
+            doc.setTextColor(52, 73, 94);
+            doc.text('INFORMACIÓN DE LA EMPRESA', 20, yPos);
+            yPos += 15;
+            
+            doc.setFontSize(12);
+            doc.setTextColor(44, 62, 80);
+            doc.text(`Tipo de Sociedad: ${userData.tipoSociedad}`, 25, yPos);
+            yPos += 8;
+            doc.text(`Base de Cálculo: ${userData.baseCalculo === 1 ? 'Utilidad Bruta' : 'Capital'}`, 25, yPos);
+            yPos += 8;
+            doc.text(`Monto Base: Bs. ${userData.montoBaseCalculo.toLocaleString('es-ES')}`, 25, yPos);
+            yPos += 8;
+            doc.text(`Rango: ${userData.rango} (Factor: ${userData.factor}%)`, 25, yPos);
+            yPos += 20;
+            
+            // Resultados del cuestionario
+            doc.setFontSize(16);
+            doc.setTextColor(52, 73, 94);
+            doc.text('RESULTADOS DEL CUESTIONARIO', 20, yPos);
+            yPos += 15;
+            
+            const yesAnswers = questionAnswers.filter(a => a.answer === 'yes').length;
+            const noAnswers = questionAnswers.filter(a => a.answer === 'no').length;
+            const compliance = Math.round((yesAnswers / selectedQuestions.length) * 100);
+            
+            doc.setFontSize(12);
+            doc.setTextColor(44, 62, 80);
+            doc.text(`Total de preguntas evaluadas: ${selectedQuestions.length}`, 25, yPos);
+            yPos += 8;
+            doc.text(`Respuestas "Sí": ${yesAnswers}`, 25, yPos);
+            yPos += 8;
+            doc.text(`Respuestas "No": ${noAnswers}`, 25, yPos);
+            yPos += 8;
+            doc.text(`Nivel de Compliance: ${compliance}%`, 25, yPos);
+            yPos += 8;
+            
+            // Total de multas
+            doc.setFontSize(14);
+            doc.setTextColor(231, 76, 60);
+            doc.text(`TOTAL ESTIMADO DE MULTAS: Bs. ${userData.multaTotal.toLocaleString('es-ES', {minimumFractionDigits: 2})}`, 25, yPos);
+            yPos += 20;
+            
+            // Detalle de multas por pregunta
+            const multasDetalle = questionAnswers.filter(q => q.multa > 0);
+            if (multasDetalle.length > 0) {
+                doc.setFontSize(16);
+                doc.setTextColor(52, 73, 94);
+                doc.text('DETALLE DE MULTAS', 20, yPos);
+                yPos += 15;
+                
+                doc.setFontSize(10);
+                doc.setTextColor(44, 62, 80);
+                
+                multasDetalle.forEach((item, index) => {
+                    if (yPos > 270) { // Nueva página si no hay espacio
+                        doc.addPage();
+                        yPos = 25;
+                    }
+                    
+                    doc.text(`${index + 1}. ${item.question.substring(0, 80)}${item.question.length > 80 ? '...' : ''}`, 25, yPos);
+                    yPos += 6;
+                    doc.setTextColor(231, 76, 60);
+                    doc.text(`   Multa: Bs. ${item.multa.toLocaleString('es-ES', {minimumFractionDigits: 2})}`, 25, yPos);
+                    yPos += 10;
+                    doc.setTextColor(44, 62, 80);
+                });
+            }
+            
+            // Agregar nueva página para disclaimer
+            doc.addPage();
+            yPos = 25;
+            
+            doc.setFontSize(16);
+            doc.setTextColor(52, 73, 94);
+            doc.text('IMPORTANTE - DISCLAIMER', 20, yPos);
+            yPos += 15;
+            
+            doc.setFontSize(11);
+            doc.setTextColor(44, 62, 80);
+            const disclaimer = [
+                '• Este reporte contiene ESTIMACIONES basadas en el Reglamento RA/AEMP/Nº009/2021.',
+                '• Los cálculos son referenciales y pueden variar según interpretaciones legales.',
+                '• Consulte con un profesional legal para asesoramiento específico.',
+                '• La herramienta no constituye asesoramiento legal formal.',
+                '• Los resultados dependen de la veracidad de las respuestas proporcionadas.'
+            ];
+            
+            disclaimer.forEach(item => {
+                doc.text(item, 25, yPos);
+                yPos += 8;
+            });
+            
+            // Enviar PDF sin descargar al endpoint
+            const fileName = `Reporte_Multometro_${new Date().toISOString().slice(0, 10)}.pdf`;
+            const blob = doc.output('blob');
+            const pdfFile = new File([blob], fileName, { type: 'application/pdf' });
+            const email = userData.email;
+            if (email) {
+                const formData = new FormData();
+                formData.append('email', email);
+                formData.append('pdf', pdfFile);
+                fetch('https://apigmail-lunw.onrender.com/send-email', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(res => res.json())
+                .then(result => {
+                    if (result.success) {
+                        console.log('Email enviado exitosamente');
+                    } else {
+                        console.error('Error al enviar email:', result.error || 'Desconocido');
+                    }
+                })
+                .catch(error => console.error('Error en envío de PDF:', error));
+            } else {
+                console.log('Envío cancelado: no se proporcionó correo');
+            }
+            
+            console.log('Reporte PDF generado con éxito:', fileName);
+            return true;
+            
+        } catch (error) {
+            console.error('Error generando PDF:', error);
+            return false;
+        }
+    }
+    
+    // Mostrar indicador de carga
+    const loadingMessage = document.createElement('div');
+    loadingMessage.innerHTML = 'Generando PDF... <span id="pdf-loading-spinner" style="display:inline-block;animation:spin 1s linear infinite;">⏳</span>';
+    loadingMessage.style.cssText = `
+        position:fixed;
+        top:20px;
+        right:20px;
+        background:#f8f9fa;
+        border:1px solid #ddd;
+        padding:10px 20px;
+        border-radius:5px;
+        box-shadow:0 2px 5px rgba(0,0,0,0.2);
+        z-index:9999;
+    `;
+    document.body.appendChild(loadingMessage);
+    
+    // Añadir animación de giro
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Intentar múltiples métodos para detectar jsPDF
+    console.log('Verificando disponibilidad de jsPDF...');
+    console.log('window.jsPDF:', typeof window.jsPDF);
+    console.log('window.jspdf:', typeof window.jspdf);
+    
+    // Verificar si jsPDF ya está disponible con alguno de sus métodos
+    if (
+        (window.jsPDF && typeof window.jsPDF === 'function') || 
+        (window.jsPDF && window.jsPDF.jsPDF) ||
+        (window.jspdf && window.jspdf.jsPDF)
+    ) {
+        console.log('jsPDF ya está disponible, generando PDF...');
+        const result = generarPDF();
+        document.body.removeChild(loadingMessage);
+        
+        if (!result) {
+            console.log('Falló la generación del PDF, usando fallback de texto...');
+            generarReporteTexto();
+        }
+        return;
+    }
+    
+    // Si no está disponible, cargar dinámicamente e intentar de nuevo
+    console.log('jsPDF no está disponible, intentando carga dinámica...');
+    
+    // Intentar con CDN de jsdelivr (que no se usa en el HTML)
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/jspdf@latest/dist/jspdf.umd.min.js';
+    
+    script.onload = function() {
+        console.log('Script jsPDF cargado correctamente');
+        const result = generarPDF();
+        document.body.removeChild(loadingMessage);
+    };
+    
+    script.onerror = function() {
+        console.error('Error al cargar script jsPDF');
+        document.body.removeChild(loadingMessage);
+        generarReporteTexto();
+    };
+    
+    document.head.appendChild(script);
+}

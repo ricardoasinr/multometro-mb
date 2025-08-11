@@ -288,9 +288,14 @@ function validateField(input) {
             if (!value) {
                 errorMessage = 'El teléfono es obligatorio';
                 isValid = false;
-            } else if (!/^[\+]?[\d\s\-\(\)]{9,15}$/.test(value)) {
-                errorMessage = 'Por favor, ingresa un teléfono válido';
-                isValid = false;
+            } else {
+                const digits = value.replace(/\D/g, '');
+                const isBoWithCode = /^591[67]\d{7}$/.test(digits);
+                const isBoLocal = /^[67]\d{7}$/.test(digits);
+                if (!(isBoWithCode || isBoLocal)) {
+                    errorMessage = 'Ingresa un teléfono boliviano válido (móvil que inicia en 6 o 7, 8 dígitos; acepta +591)';
+                    isValid = false;
+                }
             }
             break;
     }
@@ -545,19 +550,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Función utilitaria para formatear teléfono
 function formatPhone(input) {
-    let value = input.value.replace(/\D/g, '');
-    
-    if (value.length >= 10) {
-        if (value.startsWith('34')) {
-            // Formato español: +34 XXX XXX XXX
-            value = '+34 ' + value.slice(2, 5) + ' ' + value.slice(5, 8) + ' ' + value.slice(8, 11);
-        } else {
-            // Formato genérico
-            value = value.slice(0, 3) + ' ' + value.slice(3, 6) + ' ' + value.slice(6, 9);
-        }
+    let digits = input.value.replace(/\D/g, '');
+
+    // Si ingresa 8 dígitos móviles (inicia en 6 o 7), asume Bolivia y antepone 591
+    if (/^[67]\d{7}$/.test(digits)) {
+        digits = '591' + digits;
     }
-    
-    input.value = value;
+
+    // Formato Bolivia: +591 7XX XXX XX (ejemplo: +591 700 123 45)
+    if (/^591[67]\d{7}$/.test(digits)) {
+        const local = digits.slice(3); // 8 dígitos
+        input.value = `+591 ${local.slice(0,3)} ${local.slice(3,6)} ${local.slice(6,8)}`;
+        return;
+    }
+
+    // Si no cumple, deja el valor sin cambios (solo dígitos)
+    input.value = input.value;
 }
 
 // Aplicar formato automático al teléfono

@@ -50,7 +50,6 @@ function calcularMulta(pregunta, respuesta) {
         console.log('Base de cálculo:', baseCalculo, 'Monto base:', userData.montoBaseCalculo);
         // Calcular multa
         const multa = baseCalculo * userData.montoBaseCalculo * valorPorcentual;
-        userData.multaTotal += multa;
         console.log('Multa calculada:', multa);
         return multa;
     }
@@ -1184,173 +1183,9 @@ function updateSuccessPageWithResults(yesAnswers, noAnswers) {
     })));
 }
 
-// Generar reporte PDF
+// Generar reporte PDF usando plantilla HTML y html2canvas
 function generarReportePDF() {
-    // Función para generar el PDF
-    function generarPDF() {
-        try {
-            console.log('Intentando generar PDF con jsPDF...');
-            let doc;
-            
-            // Intentar diferentes formas de acceder a jsPDF
-            if (window.jspdf && window.jspdf.jsPDF) {
-                console.log('Usando jspdf.jsPDF');
-                doc = new window.jspdf.jsPDF();
-            } else if (window.jsPDF && typeof window.jsPDF === 'function') {
-                console.log('Usando jsPDF directamente');
-                doc = new window.jsPDF();
-            } else if (window.jsPDF && window.jsPDF.jsPDF) {
-                console.log('Usando jsPDF.jsPDF');
-                const { jsPDF } = window.jsPDF;
-                doc = new jsPDF();
-            } else {
-                throw new Error('No se pudo encontrar jsPDF en el ámbito global');
-            }
-            
-            // Configuración del documento
-            doc.setFontSize(20);
-            doc.setTextColor(44, 62, 80);
-            doc.text('REPORTE MULTOMETRO CHALLENGE', 20, 25);
-            
-            doc.setFontSize(12);
-            doc.setTextColor(127, 140, 141);
-            doc.text('Reporte generado el: ' + new Date().toLocaleDateString('es-ES'), 20, 35);
-            
-            // Línea separadora
-            doc.setLineWidth(0.5);
-            doc.setDrawColor(189, 195, 199);
-            doc.line(20, 40, 190, 40);
-            
-            let yPos = 55;
-            
-            // Información de la empresa
-            doc.setFontSize(16);
-            doc.setTextColor(52, 73, 94);
-            doc.text('INFORMACIÓN DE LA EMPRESA', 20, yPos);
-            yPos += 15;
-            
-            doc.setFontSize(12);
-            doc.setTextColor(44, 62, 80);
-            doc.text(`Tipo de Sociedad: ${userData.tipoSociedad}`, 25, yPos);
-            yPos += 8;
-            doc.text(`Base de Cálculo: ${userData.baseCalculo === 1 ? 'Utilidad Bruta' : 'Capital'}`, 25, yPos);
-            yPos += 8;
-            doc.text(`Monto Base: Bs. ${userData.montoBaseCalculo.toLocaleString('es-ES')}`, 25, yPos);
-            yPos += 8;
-            doc.text(`Rango: ${userData.rango} (Factor: ${userData.factor}%)`, 25, yPos);
-            yPos += 20;
-            
-            // Resultados del cuestionario
-            doc.setFontSize(16);
-            doc.setTextColor(52, 73, 94);
-            doc.text('RESULTADOS DEL CUESTIONARIO', 20, yPos);
-            yPos += 15;
-            
-            const yesAnswers = questionAnswers.filter(a => a.answer === 'yes').length;
-            const noAnswers = questionAnswers.filter(a => a.answer === 'no').length;
-            const compliance = Math.round((yesAnswers / selectedQuestions.length) * 100);
-            
-            doc.setFontSize(12);
-            doc.setTextColor(44, 62, 80);
-            doc.text(`Total de preguntas evaluadas: ${selectedQuestions.length}`, 25, yPos);
-            yPos += 8;
-            doc.text(`Respuestas "Sí": ${yesAnswers}`, 25, yPos);
-            yPos += 8;
-            doc.text(`Respuestas "No": ${noAnswers}`, 25, yPos);
-            yPos += 8;
-            doc.text(`Nivel de Compliance: ${compliance}%`, 25, yPos);
-            yPos += 8;
-            
-            // Total de multas
-            doc.setFontSize(14);
-            doc.setTextColor(231, 76, 60);
-            doc.text(`TOTAL ESTIMADO DE MULTAS: Bs. ${userData.multaTotal.toLocaleString('es-ES', {minimumFractionDigits: 2})}`, 25, yPos);
-            yPos += 20;
-            
-            // Detalle de multas por pregunta
-            const multasDetalle = questionAnswers.filter(q => q.multa > 0);
-            if (multasDetalle.length > 0) {
-                doc.setFontSize(16);
-                doc.setTextColor(52, 73, 94);
-                doc.text('DETALLE DE MULTAS', 20, yPos);
-                yPos += 15;
-                
-                doc.setFontSize(10);
-                doc.setTextColor(44, 62, 80);
-                
-                multasDetalle.forEach((item, index) => {
-                    if (yPos > 270) { // Nueva página si no hay espacio
-                        doc.addPage();
-                        yPos = 25;
-                    }
-                    
-                    doc.text(`${index + 1}. ${item.question.substring(0, 80)}${item.question.length > 80 ? '...' : ''}`, 25, yPos);
-                    yPos += 6;
-                    doc.setTextColor(231, 76, 60);
-                    doc.text(`   Multa: Bs. ${item.multa.toLocaleString('es-ES', {minimumFractionDigits: 2})}`, 25, yPos);
-                    yPos += 10;
-                    doc.setTextColor(44, 62, 80);
-                });
-            }
-            
-            // Agregar nueva página para disclaimer
-            doc.addPage();
-            yPos = 25;
-            
-            doc.setFontSize(16);
-            doc.setTextColor(52, 73, 94);
-            doc.text('IMPORTANTE - DISCLAIMER', 20, yPos);
-            yPos += 15;
-            
-            doc.setFontSize(11);
-            doc.setTextColor(44, 62, 80);
-            const disclaimer = [
-                '• Este reporte contiene ESTIMACIONES basadas en el Reglamento RA/AEMP/Nº009/2021.',
-                '• Los cálculos son referenciales y pueden variar según interpretaciones legales.',
-                '• Consulte con un profesional legal para asesoramiento específico.',
-                '• La herramienta no constituye asesoramiento legal formal.',
-                '• Los resultados dependen de la veracidad de las respuestas proporcionadas.'
-            ];
-            
-            disclaimer.forEach(item => {
-                doc.text(item, 25, yPos);
-                yPos += 8;
-            });
-            
-            // Enviar PDF sin descargar al endpoint
-            const fileName = `Reporte_Multometro_${new Date().toISOString().slice(0, 10)}.pdf`;
-            const blob = doc.output('blob');
-            const pdfFile = new File([blob], fileName, { type: 'application/pdf' });
-            const email = userData.email;
-            if (email) {
-                const formData = new FormData();
-                formData.append('email', email);
-                formData.append('pdf', pdfFile);
-                fetch('https://apigmail-lunw.onrender.com/send-email', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(res => res.json())
-                .then(result => {
-                    if (result.success) {
-                        console.log('Email enviado exitosamente');
-                    } else {
-                        console.error('Error al enviar email:', result.error || 'Desconocido');
-                    }
-                })
-                .catch(error => console.error('Error en envío de PDF:', error));
-            } else {
-                console.log('Envío cancelado: no se proporcionó correo');
-            }
-            
-            console.log('Reporte PDF generado con éxito:', fileName);
-            return true;
-            
-        } catch (error) {
-            console.error('Error generando PDF:', error);
-            return false;
-        }
-    }
+    console.log('Iniciando generación de reporte PDF con html2canvas...');
     
     // Mostrar indicador de carga
     const loadingMessage = document.createElement('div');
@@ -1378,46 +1213,241 @@ function generarReportePDF() {
     `;
     document.head.appendChild(style);
     
-    // Intentar múltiples métodos para detectar jsPDF
-    console.log('Verificando disponibilidad de jsPDF...');
-    console.log('window.jsPDF:', typeof window.jsPDF);
-    console.log('window.jspdf:', typeof window.jspdf);
-    
-    // Verificar si jsPDF ya está disponible con alguno de sus métodos
-    if (
-        (window.jsPDF && typeof window.jsPDF === 'function') || 
-        (window.jsPDF && window.jsPDF.jsPDF) ||
-        (window.jspdf && window.jspdf.jsPDF)
-    ) {
-        console.log('jsPDF ya está disponible, generando PDF...');
-        const result = generarPDF();
-        document.body.removeChild(loadingMessage);
-        
-        if (!result) {
-            console.log('Falló la generación del PDF, usando fallback de texto...');
+    // Cargar la plantilla HTML
+    fetch('./reporte-template.html')
+        .then(response => response.text())
+        .then(template => {
+            // Calcular datos para el reporte
+            const yesAnswers = questionAnswers.filter(a => a.answer === 'yes').length;
+            const noAnswers = questionAnswers.filter(a => a.answer === 'no').length;
+            const compliance = Math.round((yesAnswers / selectedQuestions.length) * 100);
+            const multasDetalle = questionAnswers.filter(q => q.multa > 0);
+            
+            // Mapear tipo de sociedad para mostrar
+            const tipoSociedadNombres = {
+                'empresa-unipersonal': 'Empresa Unipersonal',
+                'srl': 'SRL',
+                'colectiva-comandita': 'Sociedad Colectiva/Comandita',
+                'anonima-mixta': 'Sociedad Anónima/Mixta'
+            };
+            
+            // Reemplazar placeholders en la plantilla
+            let reportHTML = template
+                .replace(/{{fecha}}/g, new Date().toLocaleDateString('es-ES'))
+                .replace(/{{tipoSociedad}}/g, tipoSociedadNombres[userData.tipoSociedad] || userData.tipoSociedad)
+                .replace(/{{baseCalculo}}/g, userData.baseCalculo === 1 ? 'Utilidad Bruta' : 'Capital')
+                .replace(/{{montoBase}}/g, `Bs. ${userData.montoBaseCalculo.toLocaleString('es-ES')}`)
+                .replace(/{{rango}}/g, `${userData.rango} (Factor: ${userData.factor}%)`)
+                .replace(/{{totalPreguntas}}/g, selectedQuestions.length)
+                .replace(/{{respuestasSi}}/g, yesAnswers)
+                .replace(/{{respuestasNo}}/g, noAnswers)
+                .replace(/{{compliance}}/g, compliance)
+                .replace(/{{totalMultas}}/g, `Bs. ${userData.multaTotal.toLocaleString('es-ES', {minimumFractionDigits: 2})}`);
+            
+            // Crear DOM temporal para el reporte
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = reportHTML;
+            tempDiv.style.position = 'absolute';
+            tempDiv.style.left = '-9999px';
+            tempDiv.style.top = '-9999px';
+            document.body.appendChild(tempDiv);
+            
+            // Agregar las multas dinámicamente
+            const multasList = tempDiv.querySelector('#multas-list');
+            if (multasList && multasDetalle.length > 0) {
+                multasDetalle.forEach((item, index) => {
+                    const multaDiv = document.createElement('div');
+                    multaDiv.className = 'multa-item';
+                    multaDiv.innerHTML = `
+                        <div class="multa-question">${item.question}</div>
+                        <div class="multa-amount">Bs. ${item.multa.toLocaleString('es-ES', {minimumFractionDigits: 2})}</div>
+                    `;
+                    multasList.appendChild(multaDiv);
+                });
+            }
+            
+            // Obtener el contenedor del reporte
+            const reportContainer = tempDiv.querySelector('#report-content');
+            
+            // Configurar html2canvas
+            const canvas = html2canvas(reportContainer, {
+                scale: 2, // Mayor resolución
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: '#ffffff',
+                width: 800, // Ancho fijo
+                height: reportContainer.scrollHeight,
+                scrollX: 0,
+                scrollY: 0
+            });
+            
+            canvas.then(function(canvas) {
+                try {
+                    // Verificar disponibilidad de jsPDF
+                    let jsPDF;
+                    if (window.jspdf && window.jspdf.jsPDF) {
+                        jsPDF = window.jspdf.jsPDF;
+                    } else if (window.jsPDF) {
+                        jsPDF = window.jsPDF;
+                    } else {
+                        throw new Error('jsPDF no está disponible');
+                    }
+                    
+                    // Crear PDF
+                    const imgData = canvas.toDataURL('image/jpeg', 0.95);
+                    const pdf = new jsPDF('p', 'mm', 'a4');
+                    
+                    // Calcular dimensiones para ajustar al PDF
+                    const pdfWidth = pdf.internal.pageSize.getWidth();
+                    const pdfHeight = pdf.internal.pageSize.getHeight();
+                    const imgWidth = pdfWidth - 20; // Margen de 10mm a cada lado
+                    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                    
+                    let heightLeft = imgHeight;
+                    let position = 10; // Margen superior
+                    
+                    // Agregar primera página
+                    pdf.addImage(imgData, 'JPEG', 10, position, imgWidth, imgHeight);
+                    heightLeft -= (pdfHeight - 20);
+                    
+                    // Agregar páginas adicionales si es necesario
+                    while (heightLeft >= 0) {
+                        position = heightLeft - imgHeight + 10;
+                        pdf.addPage();
+                        pdf.addImage(imgData, 'JPEG', 10, position, imgWidth, imgHeight);
+                        heightLeft -= (pdfHeight - 20);
+                    }
+                    
+                    // Generar blob del PDF
+                    const fileName = `Reporte_Multometro_${new Date().toISOString().slice(0, 10)}.pdf`;
+                    const blob = pdf.output('blob');
+                    const pdfFile = new File([blob], fileName, { type: 'application/pdf' });
+                    
+                    // Limpiar elementos temporales
+                    document.body.removeChild(tempDiv);
+                    document.body.removeChild(loadingMessage);
+                    
+                    // Enviar por email o descargar para pruebas
+                    const email = userData.email;
+                    if (email) {
+                        const formData = new FormData();
+                        formData.append('email', email);
+                        formData.append('pdf', pdfFile);
+                        
+                        fetch('https://apigmail-lunw.onrender.com/send-email', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(res => res.json())
+                        .then(result => {
+                            if (result.success) {
+                                console.log('Email enviado exitosamente');
+                            } else {
+                                console.error('Error al enviar email:', result.error || 'Desconocido');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error en envío de PDF:', error);
+                            
+                            // En caso de error, descargar
+                            const url = window.URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.style.display = 'none';
+                            a.href = url;
+                            a.download = fileName;
+                            document.body.appendChild(a);
+                            a.click();
+                            window.URL.revokeObjectURL(url);
+                            document.body.removeChild(a);
+                        });
+                    } else {
+                        // Si no hay email, solo descargar para pruebas
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.style.display = 'none';
+                        a.href = url;
+                        a.download = fileName;
+                        document.body.appendChild(a);
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                        document.body.removeChild(a);
+                    }
+                    
+                    console.log('Reporte PDF generado con éxito:', fileName);
+                    
+                } catch (error) {
+                    console.error('Error generando PDF:', error);
+                    document.body.removeChild(tempDiv);
+                    document.body.removeChild(loadingMessage);
+                    
+                    // Fallback al reporte de texto
+                    generarReporteTexto();
+                }
+            })
+            .catch(error => {
+                console.error('Error en html2canvas:', error);
+                document.body.removeChild(tempDiv);
+                document.body.removeChild(loadingMessage);
+                
+                // Fallback al reporte de texto
+                generarReporteTexto();
+            });
+            
+        })
+        .catch(error => {
+            console.error('Error cargando plantilla HTML:', error);
+            document.body.removeChild(loadingMessage);
+            
+            // Fallback al reporte de texto
             generarReporteTexto();
-        }
-        return;
+        });
+}
+
+// Función fallback para generar reporte de texto
+function generarReporteTexto() {
+    console.log('Generando reporte de texto como fallback...');
+    
+    const yesAnswers = questionAnswers.filter(a => a.answer === 'yes').length;
+    const noAnswers = questionAnswers.filter(a => a.answer === 'no').length;
+    const compliance = Math.round((yesAnswers / selectedQuestions.length) * 100);
+    const multasDetalle = questionAnswers.filter(q => q.multa > 0);
+    
+    let reportText = `REPORTE MULTÓMETRO CHALLENGE\n`;
+    reportText += `Generado el: ${new Date().toLocaleDateString('es-ES')}\n\n`;
+    reportText += `INFORMACIÓN DE LA EMPRESA:\n`;
+    reportText += `- Tipo de Sociedad: ${userData.tipoSociedad}\n`;
+    reportText += `- Base de Cálculo: ${userData.baseCalculo === 1 ? 'Utilidad Bruta' : 'Capital'}\n`;
+    reportText += `- Monto Base: Bs. ${userData.montoBaseCalculo.toLocaleString('es-ES')}\n`;
+    reportText += `- Rango: ${userData.rango} (Factor: ${userData.factor}%)\n\n`;
+    
+    reportText += `RESULTADOS:\n`;
+    reportText += `- Total preguntas: ${selectedQuestions.length}\n`;
+    reportText += `- Respuestas "Sí": ${yesAnswers}\n`;
+    reportText += `- Respuestas "No": ${noAnswers}\n`;
+    reportText += `- Nivel de Compliance: ${compliance}%\n\n`;
+    
+    reportText += `TOTAL ESTIMADO DE MULTAS: Bs. ${userData.multaTotal.toLocaleString('es-ES', {minimumFractionDigits: 2})}\n\n`;
+    
+    if (multasDetalle.length > 0) {
+        reportText += `DETALLE DE MULTAS:\n`;
+        multasDetalle.forEach((item, index) => {
+            reportText += `${index + 1}. ${item.question}\n`;
+            reportText += `   Multa: Bs. ${item.multa.toLocaleString('es-ES', {minimumFractionDigits: 2})}\n\n`;
+        });
     }
     
-    // Si no está disponible, cargar dinámicamente e intentar de nuevo
-    console.log('jsPDF no está disponible, intentando carga dinámica...');
+    // Crear blob de texto y descargar
+    const blob = new Blob([reportText], { type: 'text/plain;charset=utf-8' });
+    const fileName = `Reporte_Multometro_${new Date().toISOString().slice(0, 10)}.txt`;
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
     
-    // Intentar con CDN de jsdelivr (que no se usa en el HTML)
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/jspdf@latest/dist/jspdf.umd.min.js';
-    
-    script.onload = function() {
-        console.log('Script jsPDF cargado correctamente');
-        const result = generarPDF();
-        document.body.removeChild(loadingMessage);
-    };
-    
-    script.onerror = function() {
-        console.error('Error al cargar script jsPDF');
-        document.body.removeChild(loadingMessage);
-        generarReporteTexto();
-    };
-    
-    document.head.appendChild(script);
+    console.log('Reporte de texto generado:', fileName);
 }

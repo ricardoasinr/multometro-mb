@@ -211,8 +211,8 @@
                             id="phone" 
                             name="phone" 
                             required 
-                            placeholder="Ej: +34 600 123 456"
-                        >
+                                                         placeholder="Ej: +591 700 123 45"
+                         >
                         <span class="error-message" id="phone-error"></span>
                     </div>
 
@@ -317,14 +317,14 @@
                 <div class="processing-icon">
                     <i class="fas fa-cog fa-spin"></i>
                 </div>
-                <h2>Configurar Evaluación</h2>
+                <h2>Ajustar Precisión de la Estimación</h2>
                 <p class="processing-message">
-                    Selecciona el porcentaje de preguntas para tu evaluación
+                    Cuanto mayor sea el porcentaje seleccionado, más preguntas responderás y más preciso será tu resultado de estimación de multa
                 </p>
 
                 <!-- Selector Principal de Porcentaje -->
                 <div class="percentage-selector">
-                    <h3>Selecciona el porcentaje de evaluación</h3>
+                    <h3>Selecciona el porcentaje de precisión</h3>
                     <div class="percentage-input-group">
                         <label for="target-percentage">Porcentaje objetivo:</label>
                         <div class="percentage-input-container">
@@ -422,7 +422,7 @@
                 <div class="success-actions">
                     <button class="btn btn-secondary" onclick="generarReportePDF()">
                         <i class="fas fa-file-pdf"></i>
-                        Enviar Reporte PDF
+                        Quiero saber mi resultado por correo electrónico
                     </button>
                     </button>
                     <button class="btn btn-primary" onclick="restartForm()">

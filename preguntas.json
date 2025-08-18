@@ -3,288 +3,336 @@
     "nro": 1,
     "pregunta": "¿Su empresa está actualmente matriculada en el Registro de Comercio?",
     "categoria": "Comercial",
-    "values": {"yes": 0, "no": 16000}
+    "values": {"yes": 0, "no": 16000},
+    "articulo": "Art. 11"
   },
   {
     "nro": 2,
     "pregunta": "¿Su empresa ha actualizado oportunamente su Matrícula de Comercio?",
     "categoria": "Comercial",
-    "values": {"empresa-unipersonal": 2200, "srl": 3200, "colectiva-comandita": 3200, "anonima-mixta": 4200}
+    "values": {"empresa-unipersonal": 2200, "srl": 3200, "colectiva-comandita": 3200, "anonima-mixta": 4200},
+    "articulo": "Art. 12"
   },
   {
     "nro": 3,
     "pregunta": "¿Ha realizado la actualización de la Matrícula de Comercio dentro del plazo establecido?",
     "categoria": "Comercial",
-    "values": {"empresa-unipersonal": 1100, "srl": 1600, "colectiva-comandita": 1600, "anonima-mixta": 2100}
+    "values": {"empresa-unipersonal": 1100, "srl": 1600, "colectiva-comandita": 1600, "anonima-mixta": 2100},
+    "articulo": "Art. 13"
   },
   {
     "nro": 4,
     "pregunta": "¿Exhibe su empresa la Matrícula de Comercio actualizada en un lugar visible?",
     "categoria": "Comercial",
-    "values": {"empresa-unipersonal": 200, "srl": 400, "colectiva-comandita": 400, "anonima-mixta": 600}
+    "values": {"empresa-unipersonal": 200, "srl": 400, "colectiva-comandita": 400, "anonima-mixta": 600},
+    "articulo": "Art. 14"
   },
   {
     "nro": 5,
     "pregunta": "¿Ha inscrito todos los actos, contratos y documentos exigidos en el Registro de Comercio?",
     "categoria": "Comercial",
-    "values": {"A": 0.0011, "B": 0.00088, "C": 0.00066, "D": 0.00044, "E": 0.00022, "F": 0.00011}
+    "values": {"A": 0.0011, "B": 0.00088, "C": 0.00066, "D": 0.00044, "E": 0.00022, "F": 0.00011},
+    "articulo": "Art. 15"
   },
   {
     "nro": 6,
     "pregunta": "¿Ha actualizado los datos de su empresa en el Registro de Comercio cuando ha sido necesario?",
     "categoria": "Comercial",
-    "values": {"A": 0.0011, "B": 0.00088, "C": 0.00066, "D": 0.00044, "E": 0.00022, "F": 0.00011}
+    "values": {"A": 0.0011, "B": 0.00088, "C": 0.00066, "D": 0.00044, "E": 0.00022, "F": 0.00011},
+    "articulo": "Art. 16"
   },
   {
     "nro": 7,
     "pregunta": "¿Lleva su empresa una contabilidad formal y actualizada?",
     "categoria": "Contable",
-    "values": {"A": 0.0016, "B": 0.00128, "C": 0.00096, "D": 0.00064, "E": 0.00032, "F": 0.00016}
+    "values": {"A": 0.0016, "B": 0.00128, "C": 0.00096, "D": 0.00064, "E": 0.00032, "F": 0.00016},
+    "articulo": "Art. 17"
   },
   {
     "nro": 8,
     "pregunta": "¿Cuenta su empresa con los libros contables obligatorios?",
     "categoria": "Contable",
-    "values": {"A": 0.0016, "B": 0.00128, "C": 0.00096, "D": 0.00064, "E": 0.00032, "F": 0.00016}
+    "values": {"A": 0.0016, "B": 0.00128, "C": 0.00096, "D": 0.00064, "E": 0.00032, "F": 0.00016},
+    "articulo": "Art. 18"
   },
   {
     "nro": 9,
     "pregunta": "¿Dispone su empresa de los libros corporativos obligatorios?",
     "categoria": "Comercial",
-    "values": {"A": 0.0016, "B": 0.00128, "C": 0.00096, "D": 0.00064, "E": 0.00032, "F": 0.00016}
+    "values": {"A": 0.0016, "B": 0.00128, "C": 0.00096, "D": 0.00064, "E": 0.00032, "F": 0.00016},
+    "articulo": "Art. 19"
   },
   {
     "nro": 10,
     "pregunta": "¿Es su contabilidad llevada por personas legalmente autorizadas?",
     "categoria": "Contable",
-    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014}
+    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014},
+    "articulo": "Art. 20"
   },
   {
     "nro": 11,
     "pregunta": "¿Se cumplen las formalidades requeridas en los libros contables y corporativos?",
     "categoria": "Comercial",
-    "values": {"A": 0.0007, "B": 0.00056, "C": 0.00042, "D": 0.00028, "E": 0.00014, "F": 0.00007}
+    "values": {"A": 0.0007, "B": 0.00056, "C": 0.00042, "D": 0.00028, "E": 0.00014, "F": 0.00007},
+    "articulo": "Art. 21"
   },
   {
     "nro": 12,
     "pregunta": "¿Cuenta con autorización para utilizar medios electrónicos o mecánicos para sus libros?",
     "categoria": "Comercial",
-    "values": {"A": 0.0007, "B": 0.00056, "C": 0.00042, "D": 0.00028, "E": 0.00014, "F": 0.00007}
+    "values": {"A": 0.0007, "B": 0.00056, "C": 0.00042, "D": 0.00028, "E": 0.00014, "F": 0.00007},
+    "articulo": "Art. 22"
   },
   {
     "nro": 13,
     "pregunta": "¿Está su contabilidad registrada en idioma español y en moneda nacional?",
     "categoria": "Contable",
-    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014}
+    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014},
+    "articulo": "Art. 23"
   },
   {
     "nro": 14,
     "pregunta": "¿Está libre su contabilidad de alteraciones no justificadas?",
     "categoria": "Contable",
-    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014}
+    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014},
+    "articulo": "Art. 24"
   },
   {
     "nro": 15,
     "pregunta": "¿Se cumple con las condiciones establecidas para los registros en los libros Diario y Mayor?",
     "categoria": "Contable",
-    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014}
+    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014},
+    "articulo": "Art. 25"
   },
   {
     "nro": 16,
     "pregunta": "¿Aplica su empresa criterios uniformes y revelados para la valorización de partidas de balance?",
     "categoria": "Contable",
-    "values": {"A": 0.0016, "B": 0.00128, "C": 0.00096, "D": 0.00064, "E": 0.00032, "F": 0.00016}
+    "values": {"A": 0.0016, "B": 0.00128, "C": 0.00096, "D": 0.00064, "E": 0.00032, "F": 0.00016},
+    "articulo": "Art. 26"
   },
   {
     "nro": 17,
     "pregunta": "¿Están firmados sus estados financieros por los responsables correspondientes?",
     "categoria": "Contable",
-    "values": {"A": 0.0007, "B": 0.00056, "C": 0.00042, "D": 0.00028, "E": 0.00014, "F": 0.00007}
+    "values": {"A": 0.0007, "B": 0.00056, "C": 0.00042, "D": 0.00028, "E": 0.00014, "F": 0.00007},
+    "articulo": "Art. 27"
   },
   {
     "nro": 18,
     "pregunta": "¿Su empresa archiva adecuadamente la correspondencia comercial?",
     "categoria": "Comercial",
-    "values": {"A": 0.0011, "B": 0.00088, "C": 0.00066, "D": 0.00044, "E": 0.00022, "F": 0.00011}
+    "values": {"A": 0.0011, "B": 0.00088, "C": 0.00066, "D": 0.00044, "E": 0.00022, "F": 0.00011},
+    "articulo": "Art. 28"
   },
   {
     "nro": 19,
     "pregunta": "¿Conserva su empresa los libros, papeles de comercio y correspondencia durante el tiempo legal requerido?",
     "categoria": "Comercial",
-    "values": {"A": 0.0011, "B": 0.00088, "C": 0.00066, "D": 0.00044, "E": 0.00022, "F": 0.00011}
+    "values": {"A": 0.0011, "B": 0.00088, "C": 0.00066, "D": 0.00044, "E": 0.00022, "F": 0.00011},
+    "articulo": "Art. 29"
   },
   {
     "nro": 20,
     "pregunta": "¿Han sido auditados sus estados financieros por una firma externa autorizada?",
     "categoria": "Contable",
-    "values": {"A": 0.0011, "B": 0.00088, "C": 0.00066, "D": 0.00044, "E": 0.00022, "F": 0.00011}
+    "values": {"A": 0.0011, "B": 0.00088, "C": 0.00066, "D": 0.00044, "E": 0.00022, "F": 0.00011},
+    "articulo": "Art. 30"
   },
   {
     "nro": 21,
     "pregunta": "¿Su empresa mantiene una única contabilidad?",
     "categoria": "Contable",
-    "values": {"A": 0.0016, "B": 0.00128, "C": 0.00096, "D": 0.00064, "E": 0.00032, "F": 0.00016}
+    "values": {"A": 0.0016, "B": 0.00128, "C": 0.00096, "D": 0.00064, "E": 0.00032, "F": 0.00016},
+    "articulo": "Art. 31"
   },
   {
     "nro": 22,
     "pregunta": "¿Publica su empresa los documentos requeridos en la Gaceta Electrónica del Registro de Comercio?",
     "categoria": "Comercial",
-    "values": {"A": 0.0007, "B": 0.00056, "C": 0.00042, "D": 0.00028, "E": 0.00014, "F": 0.00007}
+    "values": {"A": 0.0007, "B": 0.00056, "C": 0.00042, "D": 0.00028, "E": 0.00014, "F": 0.00007},
+    "articulo": "Art. 32"
   },
   {
     "nro": 23,
     "pregunta": "¿Cumplen los aportes de socios o accionistas con los requisitos legales?",
     "categoria": "Comercial",
-    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014}
+    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014},
+    "articulo": "Art. 33"
   },
   {
     "nro": 24,
     "pregunta": "¿Se realiza la distribución de utilidades y el tratamiento de pérdidas acumuladas conforme a la normativa?",
     "categoria": "Comercial",
-    "values": {"A": 0.0011, "B": 0.00088, "C": 0.00066, "D": 0.00044, "E": 0.00022, "F": 0.00011}
+    "values": {"A": 0.0011, "B": 0.00088, "C": 0.00066, "D": 0.00044, "E": 0.00022, "F": 0.00011},
+    "articulo": "Art. 34"
   },
   {
     "nro": 25,
     "pregunta": "¿Ha constituido su empresa la reserva legal exigida?",
     "categoria": "Comercial",
-    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014}
+    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014},
+    "articulo": "Art. 35"
   },
   {
     "nro": 26,
     "pregunta": "¿Está debidamente registrado el contenido en el Libro de Registro de Socios?",
     "categoria": "Comercial",
-    "values": {"A": 0.0011, "B": 0.00088, "C": 0.00066, "D": 0.00044, "E": 0.00022, "F": 0.00011}
+    "values": {"A": 0.0011, "B": 0.00088, "C": 0.00066, "D": 0.00044, "E": 0.00022, "F": 0.00011},
+    "articulo": "Art. 36"
   },
   {
     "nro": 27,
     "pregunta": "¿Celebra su empresa asambleas anuales ordinarias dentro del plazo establecido?",
     "categoria": "Comercial",
-    "values": {"A": 0.0016, "B": 0.00128, "C": 0.00096, "D": 0.00064, "E": 0.00032, "F": 0.00016}
+    "values": {"A": 0.0016, "B": 0.00128, "C": 0.00096, "D": 0.00064, "E": 0.00032, "F": 0.00016},
+    "articulo": "Art. 37"
   },
   {
     "nro": 28,
     "pregunta": "¿Se cumple con el quórum legal en las asambleas o juntas de accionistas?",
     "categoria": "Comercial",
-    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014}
+    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014},
+    "articulo": "Art. 38"
   },
   {
     "nro": 29,
     "pregunta": "¿Está correctamente registrado el contenido en el Libro de Registro de Acciones?",
     "categoria": "Comercial",
-    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014}
+    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014},
+    "articulo": "Art. 39"
   },
   {
     "nro": 30,
     "pregunta": "¿La Junta General Ordinaria de Accionistas se realiza dentro del plazo legal?",
     "categoria": "Comercial",
-    "values": {"A": 0.0011, "B": 0.00088, "C": 0.00066, "D": 0.00044, "E": 0.00022, "F": 0.00011}
+    "values": {"A": 0.0011, "B": 0.00088, "C": 0.00066, "D": 0.00044, "E": 0.00022, "F": 0.00011},
+    "articulo": "Art. 40"
   },
   {
     "nro": 31,
     "pregunta": "¿Se convoca a la Junta General Ordinaria para tratar los puntos del art. 285 del Código de Comercio?",
     "categoria": "Comercial",
-    "values": {"A": 0.0011, "B": 0.00088, "C": 0.00066, "D": 0.00044, "E": 0.00022, "F": 0.00011}
+    "values": {"A": 0.0011, "B": 0.00088, "C": 0.00066, "D": 0.00044, "E": 0.00022, "F": 0.00011},
+    "articulo": "Art. 41"
   },
   {
     "nro": 32,
     "pregunta": "¿Los temas tratados en las Juntas Generales están dentro de la competencia legal de la asamblea?",
     "categoria": "Comercial",
-    "values": {"A": 0.0011, "B": 0.00088, "C": 0.00066, "D": 0.00044, "E": 0.00022, "F": 0.00011}
+    "values": {"A": 0.0011, "B": 0.00088, "C": 0.00066, "D": 0.00044, "E": 0.00022, "F": 0.00011},
+    "articulo": "Art. 42"
   },
   {
     "nro": 33,
     "pregunta": "¿Se cumplen las formalidades para convocar a asambleas o juntas de accionistas?",
     "categoria": "Comercial",
-    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014}
+    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014},
+    "articulo": "Art. 43"
   },
   {
     "nro": 34,
     "pregunta": "¿Quienes convocan a las asambleas tienen la competencia legal para hacerlo?",
     "categoria": "Comercial",
-    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014}
+    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014},
+    "articulo": "Art. 44"
   },
   {
     "nro": 35,
     "pregunta": "¿Los asuntos tratados en las juntas de accionistas se ajustan a la normativa vigente?",
     "categoria": "Comercial",
-    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014}
+    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014},
+    "articulo": "Art. 45"
   },
   {
     "nro": 36,
     "pregunta": "¿La composición del Directorio cumple con los requisitos legales?",
     "categoria": "Comercial",
-    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014}
+    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014},
+    "articulo": "Art. 46"
   },
   {
     "nro": 37,
     "pregunta": "¿La elección de los miembros del Directorio fue realizada legalmente?",
     "categoria": "Comercial",
-    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014}
+    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014},
+    "articulo": "Art. 47"
   },
   {
     "nro": 38,
     "pregunta": "¿Publica su empresa la memoria anual (en caso de ser Sociedad Anónima)?",
     "categoria": "Comercial",
-    "values": "Suspensión temporal del Presidente o Gerente de hasta 6 meses"
+    "values": "Suspensión temporal del Presidente o Gerente de hasta 6 meses",
+    "articulo": "Art. 48"
   },
   {
     "nro": 39,
     "pregunta": "¿Están constituidas las fianzas de los Directores y Síndicos cuando corresponde?",
     "categoria": "Comercial",
-    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014}
+    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014},
+    "articulo": "Art. 49"
   },
   {
     "nro": 40,
     "pregunta": "¿Han sido designados los Directores en representación de los accionistas minoritarios?",
     "categoria": "Comercial",
-    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014}
+    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014},
+    "articulo": "Art. 50"
   },
   {
     "nro": 41,
     "pregunta": "¿La elección de los Síndicos fue realizada conforme a la normativa?",
     "categoria": "Comercial",
-    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014}
+    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014},
+    "articulo": "Art. 51"
   },
   {
     "nro": 42,
     "pregunta": "¿Se ha cumplido con la reducción de capital cuando ha sido obligatoria?",
     "categoria": "Comercial",
-    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014}
+    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014},
+    "articulo": "Art. 52"
   },
   {
     "nro": 43,
     "pregunta": "¿Las sociedades extranjeras cumplen los requisitos para ejercer actos de comercio en el país?",
     "categoria": "Comercial",
-    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014}
+    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014},
+    "articulo": "Art. 53"
   },
   {
     "nro": 44,
     "pregunta": "¿Están debidamente autenticados los documentos emitidos en el exterior por sociedades extranjeras?",
     "categoria": "Comercial",
-    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014}
+    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014},
+    "articulo": "Art. 54"
   },
   {
     "nro": 45,
     "pregunta": "¿Aplica su empresa las normas de contabilidad o auditoría emitidas por el Colegio de Auditores de Bolivia?",
     "categoria": "Contable",
-    "values": "Amonestación escrita"
+    "values": "Amonestación escrita",
+    "articulo": "Art. 55 y 56"
   },
   {
     "nro": 46,
     "pregunta": "¿Permite su empresa la inspección administrativa cuando es requerida?",
     "categoria": "Comercial",
-    "values": {"empresa-unipersonal": 3100, "srl": 6100, "colectiva-comandita": 6100, "anonima-mixta": 9100}
+    "values": {"empresa-unipersonal": 3100, "srl": 6100, "colectiva-comandita": 6100, "anonima-mixta": 9100},
+    "articulo": "Art. 57"
   },
   {
     "nro": 47,
     "pregunta": "¿Responde su empresa a las solicitudes de información por parte de la AEMP?",
     "categoria": "Comercial",
-    "values": {"empresa-unipersonal": 5000, "srl": 10000, "colectiva-comandita": 10000, "anonima-mixta": 15000}
+    "values": {"empresa-unipersonal": 5000, "srl": 10000, "colectiva-comandita": 10000, "anonima-mixta": 15000},
+    "articulo": "Art. 58"
   },
   {
     "nro": 48,
     "pregunta": "¿Cumple su empresa con las resoluciones administrativas y otros actos emitidos por la AEMP?",
     "categoria": "Comercial",
-    "values": {"empresa-unipersonal": 18000, "srl": 18000, "colectiva-comandita": 18000, "anonima-mixta": 18000}
+    "values": {"empresa-unipersonal": 18000, "srl": 18000, "colectiva-comandita": 18000, "anonima-mixta": 18000},
+    "articulo": "Art. 59"
   }
 ] 

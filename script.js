@@ -647,13 +647,11 @@ async function startProgressAnimation() {
     
     console.log('Total de preguntas disponibles:', allQuestions.length);
     
-    // Seleccionar preguntas en orden secuencial según el porcentaje
-        selectRandomQuestions(percentage);
+    // Seleccionar preguntas de forma aleatoria según el porcentaje
+    selectRandomQuestions(percentage);
     
     console.log('Preguntas seleccionadas:', selectedQuestions.length);
-    console.log('Preguntas:', selectedQuestions);
-    
-    // Mostrar mensaje de carga
+    console.log('Preguntas:', selectedQuestions);    // Mostrar mensaje de carga
     const startButton = document.querySelector('.btn-start');
     const originalText = startButton.innerHTML;
     startButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparando preguntas...';
@@ -1035,25 +1033,23 @@ async function loadQuestions() {
     }
 }
 
-// Seleccionar preguntas en orden secuencial según el porcentaje
-function selectSequentialQuestions(percentage) {
+// Seleccionar preguntas de forma aleatoria según el porcentaje
+function selectRandomQuestions(percentage) {
     const totalQuestions = allQuestions.length;
-        const questionsToSelect = Math.ceil((percentage / 100) * totalQuestions);
-        // Crear una copia del array para no modificar el original
-        const questionsCopy = [...allQuestions];
-        selectedQuestions = [];
-        // Seleccionar aleatoriamente
-        for (let i = 0; i < questionsToSelect && questionsCopy.length > 0; i++) {
-            const randomIndex = Math.floor(Math.random() * questionsCopy.length);
-            selectedQuestions.push(questionsCopy[randomIndex]);
-            questionsCopy.splice(randomIndex, 1);
-        }
-        console.log(`Seleccionadas ${selectedQuestions.length} preguntas de ${totalQuestions} (${percentage}%) aleatorias`);
+    const questionsToSelect = Math.ceil((percentage / 100) * totalQuestions);
     
-    // Seleccionar las primeras N preguntas en orden
-    selectedQuestions = allQuestions.slice(0, questionsToSelect);
+    // Crear una copia del array para no modificar el original
+    const questionsCopy = [...allQuestions];
+    selectedQuestions = [];
     
-    console.log(`Seleccionadas ${selectedQuestions.length} preguntas de ${totalQuestions} (${percentage}%) en orden secuencial`);
+    // Seleccionar aleatoriamente
+    for (let i = 0; i < questionsToSelect && questionsCopy.length > 0; i++) {
+        const randomIndex = Math.floor(Math.random() * questionsCopy.length);
+        selectedQuestions.push(questionsCopy[randomIndex]);
+        questionsCopy.splice(randomIndex, 1);
+    }
+    
+    console.log(`Seleccionadas ${selectedQuestions.length} preguntas de ${totalQuestions} (${percentage}%) aleatoriamente`);
     return selectedQuestions;
 }
 
@@ -1127,8 +1123,10 @@ function answerQuestion(answer) {
         question: question.pregunta,
         category: question.categoria,
         answer: answer,
-        values: question.values,
-        multa: multa
+    values: question.values,
+    multa: multa,
+    nro: question.nro,
+    articulo: question.articulo
     });
     
     console.log('Respuesta guardada. Total respuestas:', questionAnswers.length);
@@ -1306,8 +1304,13 @@ function generarReportePDF() {
                     const multaDiv = document.createElement('div');
                     multaDiv.className = 'multa-item';
                     multaDiv.innerHTML = `
-                        <div class="multa-question">${item.question}</div>
-                        <div class="multa-amount">Bs. ${item.multa.toLocaleString('es-ES', {minimumFractionDigits: 2})}</div>
+                        <div>
+                            <div class="multa-question">${item.question}</div>
+                            <span class="multa-articulo">${item.articulo ? item.articulo : ''}</span>
+                        </div>
+                        <div>
+                            <div class="multa-amount">Bs. ${item.multa.toLocaleString('es-ES', {minimumFractionDigits: 2})}</div>
+                        </div>
                     `;
                     multasList.appendChild(multaDiv);
                 });
@@ -1478,7 +1481,7 @@ function generarReporteTexto() {
     if (multasDetalle.length > 0) {
         reportText += `DETALLE DE MULTAS:\n`;
         multasDetalle.forEach((item, index) => {
-            reportText += `${index + 1}. ${item.question}\n`;
+            reportText += `${index + 1}. ${item.question} ${item.articulo ? '(' + item.articulo + ')' : ''}\n`;
             reportText += `   Multa: Bs. ${item.multa.toLocaleString('es-ES', {minimumFractionDigits: 2})}\n\n`;
         });
     }

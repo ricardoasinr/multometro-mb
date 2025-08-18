@@ -37,12 +37,24 @@ function calcularMulta(pregunta, respuesta) {
     
     const nro = pregunta.nro;
     
-    // Preguntas especiales 1-4
+    // Preguntas especiales 1-4 (valores fijos por tipo de sociedad)
     if (nro >= 1 && nro <= 4) {
         return calcularMultaEspecial(nro);
     }
     
-    // Preguntas normales 5-42 con valores por rango
+    // Preguntas especiales 46-48 (valores fijos por tipo de sociedad)
+    if (nro >= 46 && nro <= 48) {
+        return calcularMultaEspecial(nro);
+    }
+    
+    // Preguntas 38 y 45 con valores de texto (suspensión/amonestación)
+    if (nro === 38 || nro === 45) {
+        // Estas preguntas tienen valores de texto, no multas monetarias
+        console.log(`Pregunta ${nro}: ${pregunta.values}`);
+        return 0; // No se aplica multa monetaria
+    }
+    
+    // Preguntas normales 5-37, 39-44 con valores por rango
     if (pregunta.values && pregunta.values[userData.rango]) {
         const valorPorcentual = pregunta.values[userData.rango];
         console.log('Calculando multa para pregunta:', nro, 'con valor:', valorPorcentual);
@@ -57,7 +69,7 @@ function calcularMulta(pregunta, respuesta) {
     return 0;
 }
 
-// Función para preguntas especiales (1-4)
+// Función para preguntas especiales (1-4, 46-48)
 function calcularMultaEspecial(nro) {
     switch(nro) {
         case 1:
@@ -89,6 +101,33 @@ function calcularMultaEspecial(nro) {
                 'anonima-mixta': 600
             };
             return valores4[userData.tipoSociedad] || 0;
+        
+        case 46:
+            const valores46 = {
+                'empresa-unipersonal': 3100,
+                'srl': 6100,
+                'colectiva-comandita': 6100,
+                'anonima-mixta': 9100
+            };
+            return valores46[userData.tipoSociedad] || 0;
+        
+        case 47:
+            const valores47 = {
+                'empresa-unipersonal': 5000,
+                'srl': 10000,
+                'colectiva-comandita': 10000,
+                'anonima-mixta': 15000
+            };
+            return valores47[userData.tipoSociedad] || 0;
+        
+        case 48:
+            const valores48 = {
+                'empresa-unipersonal': 18000,
+                'srl': 18000,
+                'colectiva-comandita': 18000,
+                'anonima-mixta': 18000
+            };
+            return valores48[userData.tipoSociedad] || 0;
         
         default:
             return 0;
@@ -122,7 +161,7 @@ function nextPage() {
             // Recolectar datos de configuración de empresa
             userData.tipoSociedad = companyType.value;
             console.log("calculation base:", calculationBase.value);
-            userData.baseCalculo = calculationBase.value === 'utilidad-bruta' ? 1 : 0.8;
+            userData.baseCalculo = calculationBase.value === 'utilidad-bruta' ? 0.8 : 1;
             userData.montoBaseCalculo = parseFloat(baseAmount.value);
             
             // Determinar rango y factor
@@ -608,8 +647,8 @@ async function startProgressAnimation() {
     
     console.log('Total de preguntas disponibles:', allQuestions.length);
     
-    // Seleccionar preguntas aleatorias según el porcentaje
-    selectRandomQuestions(percentage);
+    // Seleccionar preguntas en orden secuencial según el porcentaje
+        selectRandomQuestions(percentage);
     
     console.log('Preguntas seleccionadas:', selectedQuestions.length);
     console.log('Preguntas:', selectedQuestions);
@@ -996,23 +1035,25 @@ async function loadQuestions() {
     }
 }
 
-// Seleccionar preguntas aleatorias según el porcentaje
-function selectRandomQuestions(percentage) {
+// Seleccionar preguntas en orden secuencial según el porcentaje
+function selectSequentialQuestions(percentage) {
     const totalQuestions = allQuestions.length;
-    const questionsToSelect = Math.ceil((percentage / 100) * totalQuestions);
+        const questionsToSelect = Math.ceil((percentage / 100) * totalQuestions);
+        // Crear una copia del array para no modificar el original
+        const questionsCopy = [...allQuestions];
+        selectedQuestions = [];
+        // Seleccionar aleatoriamente
+        for (let i = 0; i < questionsToSelect && questionsCopy.length > 0; i++) {
+            const randomIndex = Math.floor(Math.random() * questionsCopy.length);
+            selectedQuestions.push(questionsCopy[randomIndex]);
+            questionsCopy.splice(randomIndex, 1);
+        }
+        console.log(`Seleccionadas ${selectedQuestions.length} preguntas de ${totalQuestions} (${percentage}%) aleatorias`);
     
-    // Crear una copia del array para no modificar el original
-    const questionsCopy = [...allQuestions];
-    selectedQuestions = [];
+    // Seleccionar las primeras N preguntas en orden
+    selectedQuestions = allQuestions.slice(0, questionsToSelect);
     
-    // Seleccionar aleatoriamente
-    for (let i = 0; i < questionsToSelect && questionsCopy.length > 0; i++) {
-        const randomIndex = Math.floor(Math.random() * questionsCopy.length);
-        selectedQuestions.push(questionsCopy[randomIndex]);
-        questionsCopy.splice(randomIndex, 1);
-    }
-    
-    console.log(`Seleccionadas ${selectedQuestions.length} preguntas de ${totalQuestions} (${percentage}%)`);
+    console.log(`Seleccionadas ${selectedQuestions.length} preguntas de ${totalQuestions} (${percentage}%) en orden secuencial`);
     return selectedQuestions;
 }
 
@@ -1181,10 +1222,11 @@ function updateSuccessPageWithResults(yesAnswers, noAnswers) {
         porcentajeCompliance: Math.round((yesAnswers / selectedQuestions.length) * 100),
         multaTotal: userData.multaTotal
     });
-    console.log('Detalle de multas por pregunta:', questionAnswers.filter(q => q.multa > 0).map(q => ({
+    console.log('Detalle de multas por pregunta:', questionAnswers.map(q => ({
         pregunta: q.question,
         respuesta: q.answer,
-        multa: q.multa
+        multa: q.multa,
+        nro: q.nro
     })));
 }
 

@@ -177,7 +177,7 @@
     "nro": 30,
     "pregunta": "¿La Junta General Ordinaria de Accionistas se realiza dentro del plazo legal?",
     "categoria": "Comercial",
-    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014}
+    "values": {"A": 0.0011, "B": 0.00088, "C": 0.00066, "D": 0.00044, "E": 0.00022, "F": 0.00011}
   },
   {
     "nro": 31,
@@ -189,7 +189,7 @@
     "nro": 32,
     "pregunta": "¿Los temas tratados en las Juntas Generales están dentro de la competencia legal de la asamblea?",
     "categoria": "Comercial",
-    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014}
+    "values": {"A": 0.0011, "B": 0.00088, "C": 0.00066, "D": 0.00044, "E": 0.00022, "F": 0.00011}
   },
   {
     "nro": 33,
@@ -201,7 +201,7 @@
     "nro": 34,
     "pregunta": "¿Quienes convocan a las asambleas tienen la competencia legal para hacerlo?",
     "categoria": "Comercial",
-    "values": {"A": 0.0011, "B": 0.00088, "C": 0.00066, "D": 0.00044, "E": 0.00022, "F": 0.00011}
+    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014}
   },
   {
     "nro": 35,

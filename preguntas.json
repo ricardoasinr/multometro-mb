@@ -225,7 +225,7 @@
     "nro": 38,
     "pregunta": "¿Publica su empresa la memoria anual (en caso de ser Sociedad Anónima)?",
     "categoria": "Comercial",
-    "values": {"A": 0.0014, "B": 0.00112, "C": 0.00084, "D": 0.00056, "E": 0.00028, "F": 0.00014}
+    "values": "Suspensión temporal del Presidente o Gerente de hasta 6 meses"
   },
   {
     "nro": 39,
@@ -267,24 +267,24 @@
     "nro": 45,
     "pregunta": "¿Aplica su empresa las normas de contabilidad o auditoría emitidas por el Colegio de Auditores de Bolivia?",
     "categoria": "Contable",
-    "values": {"A": 0.00, "B": 0.00, "C": 0.00, "D": 0.00, "E": 0.00, "F": 0.00}
+    "values": "Amonestación escrita"
   },
   {
     "nro": 46,
     "pregunta": "¿Permite su empresa la inspección administrativa cuando es requerida?",
     "categoria": "Comercial",
-    "values": {"A": 0.00, "B": 0.00, "C": 0.00, "D": 0.00, "E": 0.00, "F": 0.00}
+    "values": {"empresa-unipersonal": 3100, "srl": 6100, "colectiva-comandita": 6100, "anonima-mixta": 9100}
   },
   {
     "nro": 47,
     "pregunta": "¿Responde su empresa a las solicitudes de información por parte de la AEMP?",
     "categoria": "Comercial",
-    "values": {"A": 0.00, "B": 0.00, "C": 0.00, "D": 0.00, "E": 0.00, "F": 0.00}
+    "values": {"empresa-unipersonal": 5000, "srl": 10000, "colectiva-comandita": 10000, "anonima-mixta": 15000}
   },
   {
     "nro": 48,
     "pregunta": "¿Cumple su empresa con las resoluciones administrativas y otros actos emitidos por la AEMP?",
     "categoria": "Comercial",
-    "values": {"A": 0.00, "B": 0.00, "C": 0.00, "D": 0.00, "E": 0.00, "F": 0.00}
+    "values": {"empresa-unipersonal": 18000, "srl": 18000, "colectiva-comandita": 18000, "anonima-mixta": 18000}
   }
 ] 

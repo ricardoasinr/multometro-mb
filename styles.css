@@ -9,14 +9,14 @@ body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
     color: #1A1A1A;
-    background: #FFFFFF;
+    background: linear-gradient(135deg, #c41e3a 0%, #a01829 100%);
     min-height: 100vh;
     overflow-x: hidden;
 }
 
 /* Container principal */
 .container {
-    max-width: 800px;
+    max-width: 2000px;
     margin: 0 auto;
     padding: 1rem;
     min-height: 100vh;
@@ -43,50 +43,41 @@ body {
 .welcome-content {
     text-align: center;
     background: white;
-    padding: 3rem 2rem;
+    padding: 3rem 2.5rem;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    max-width: 700px;
-    width: 100%;
-    max-height: 90vh;
+    box-shadow: 0 10px 40px rgba(10, 22, 40, 0.3);
+    max-width: 1800px;
+    width: 98%;
+    max-height: 95vh;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: #cbd5e0 transparent;
+    scrollbar-width: none; /* Firefox - ocultar scrollbar */
+    -ms-overflow-stygile: none; /* IE y Edge - ocultar scrollbar */
 }
 
+/* Webkit browsers - ocultar scrollbar */
 .welcome-content::-webkit-scrollbar {
-    width: 6px;
-}
-
-.welcome-content::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.welcome-content::-webkit-scrollbar-thumb {
-    background-color: #cbd5e0;
-    border-radius: 3px;
-}
-
-.welcome-content::-webkit-scrollbar-thumb:hover {
-    background-color: #a0aec0;
+    display: none;
+    width: 0;
+    height: 0;
 }
 
 .welcome-icon {
-    background: linear-gradient(135deg, #007ACC, #0066CC);
+    background: linear-gradient(135deg, #0a1628, #162c4a);
     color: white;
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 2rem;
-    font-size: 2rem;
+    font-size: 2.5rem;
+    box-shadow: 0 8px 20px rgba(10, 22, 40, 0.5);
 }
 
 .welcome-content h1 {
-    font-size: 2.5rem;
+    font-size: 2.75rem;
     font-weight: 700;
     margin-bottom: 1rem;
     color: #1A1A1A;
@@ -94,10 +85,10 @@ body {
 }
 
 .welcome-subtitle {
-    font-size: 1.1rem;
-    color: #007ACC;
+    font-size: 1.2rem;
+    color: #0a1628;
     margin-bottom: 2rem;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.5;
 }
 
@@ -157,8 +148,8 @@ body {
 }
 
 .important-notice {
-    background: #f0f8ff;
-    border: 2px solid #007ACC;
+    background: #f5f5f5;
+    border: 2px solid #0a1628;
     border-radius: 12px;
     padding: 1.5rem;
     margin: 2rem 0;
@@ -169,7 +160,7 @@ body {
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 1rem;
-    color: #007ACC;
+    color: #0a1628;
     justify-content: center;
 }
 
@@ -182,7 +173,7 @@ body {
     padding: 1rem;
     border-radius: 8px;
     margin-top: 1rem;
-    border-left: 4px solid #007ACC;
+    border-left: 4px solid #c41e3a;
 }
 
 .contact-info p {
@@ -192,9 +183,9 @@ body {
 }
 
 .contact-info a {
-    color: #007ACC;
+    color: #0a1628;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .contact-info a:hover {
@@ -203,7 +194,7 @@ body {
 
 .final-message {
     font-size: 1rem;
-    color: #007ACC;
+    color: #0a1628;
     font-weight: 600;
     margin-top: 1.5rem;
     font-style: italic;
@@ -212,11 +203,11 @@ body {
 /* Página de Instrucciones */
 .instructions-content {
     background: white;
-    padding: 2rem;
+    padding: 2.5rem;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    width: 100%;
-    max-width: 700px;
+    box-shadow: 0 10px 40px rgba(10, 22, 40, 0.3);
+    width: 98%;
+    max-width: 1800px;
 }
 
 .back-button {
@@ -229,16 +220,17 @@ body {
 }
 
 .instruction-icon {
-    background: linear-gradient(135deg, #007ACC, #0066CC);
+    background: linear-gradient(135deg, #0a1628, #162c4a);
     color: white;
-    width: 70px;
-    height: 70px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 1.5rem;
-    font-size: 1.75rem;
+    font-size: 2.25rem;
+    box-shadow: 0 8px 20px rgba(10, 22, 40, 0.5);
 }
 
 .instructions-header h2 {
@@ -257,13 +249,14 @@ body {
     align-items: flex-start;
     margin-bottom: 2rem;
     padding: 1.5rem;
-    background: #f7fafc;
+    background: #ffffff;
     border-radius: 15px;
-    border-left: 4px solid #007ACC;
+    border-left: 4px solid #c41e3a;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .step-number {
-    background: #007ACC;
+    background: linear-gradient(135deg, #0a1628, #162c4a);
     color: white;
     width: 40px;
     height: 40px;
@@ -274,6 +267,7 @@ body {
     font-weight: 600;
     margin-right: 1.5rem;
     flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(10, 22, 40, 0.4);
 }
 
 .step-content h3 {
@@ -304,11 +298,11 @@ body {
 /* Página del Formulario */
 .form-content {
     background: white;
-    padding: 2rem;
+    padding: 2.5rem;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    width: 100%;
-    max-width: 600px;
+    box-shadow: 0 10px 40px rgba(10, 22, 40, 0.3);
+    width: 98%;
+    max-width: 1400px;
 }
 
 .form-header {
@@ -317,22 +311,23 @@ body {
 }
 
 .form-icon {
-    background: linear-gradient(135deg, #007ACC, #0066CC);
+    background: linear-gradient(135deg, #0a1628, #162c4a);
     color: white;
-    width: 70px;
-    height: 70px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 1.5rem;
-    font-size: 1.75rem;
+    font-size: 2.25rem;
+    box-shadow: 0 8px 20px rgba(10, 22, 40, 0.5);
 }
 
 .form-header h2 {
-    font-size: 1.75rem;
+    font-size: 2rem;
     font-weight: 600;
-    color: #007ACC;
+    color: #0a1628;
     margin-bottom: 0.5rem;
 }
 
@@ -360,7 +355,7 @@ body {
 }
 
 .form-group label i {
-    color: #007ACC;
+    color: #0a1628;
     width: 16px;
 }
 
@@ -376,9 +371,9 @@ body {
 
 .form-group input:focus {
     outline: none;
-    border-color: #007ACC;
+    border-color: #0a1628;
     background: white;
-    box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.1);
+    box-shadow: 0 0 0 3px rgba(10, 22, 40, 0.15);
 }
 
 .form-group input:valid {
@@ -397,11 +392,11 @@ body {
 .success-content {
     text-align: center;
     background: white;
-    padding: 3rem 2rem;
+    padding: 3rem 2.5rem;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    max-width: 600px;
-    width: 100%;
+    box-shadow: 0 10px 40px rgba(10, 22, 40, 0.3);
+    max-width: 1600px;
+    width: 98%;
 }
 
 .success-icon {
@@ -475,14 +470,16 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #007ACC, #0066CC);
+    background: linear-gradient(135deg, #c41e3a, #a01829);
     color: white;
-    box-shadow: 0 4px 15px rgba(0, 122, 204, 0.3);
+    box-shadow: 0 4px 15px rgba(196, 30, 58, 0.4);
+    font-weight: 600;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 122, 204, 0.4);
+    box-shadow: 0 8px 25px rgba(196, 30, 58, 0.5);
+    background: linear-gradient(135deg, #d4243f, #b01d2f);
 }
 
 .btn-secondary {
@@ -526,7 +523,7 @@ body {
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(135deg, #007ACC, #0066CC);
+    background: linear-gradient(135deg, #c41e3a, #162c4a);
     border-radius: 2px;
     width: 33.33%;
     transition: width 0.4s ease;
@@ -554,7 +551,7 @@ body {
 }
 
 .step.active {
-    background: linear-gradient(135deg, #007ACC, #0066CC);
+    background: linear-gradient(135deg, #0a1628, #162c4a);
     color: white;
 }
 
@@ -751,7 +748,7 @@ body {
 /* Mejoras de accesibilidad */
 .btn:focus,
 .form-group input:focus {
-    outline: 2px solid #007ACC;
+    outline: 2px solid #0a1628;
     outline-offset: 2px;
 }
 
@@ -759,24 +756,25 @@ body {
 .progress-content {
     text-align: center;
     background: white;
-    padding: 3rem 2rem;
+    padding: 3rem 2.5rem;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    max-width: 700px;
-    width: 100%;
+    box-shadow: 0 10px 40px rgba(10, 22, 40, 0.3);
+    max-width: 1800px;
+    width: 98%;
 }
 
 .processing-icon {
-    background: linear-gradient(135deg, #007ACC, #0066CC);
+    background: linear-gradient(135deg, #0a1628, #162c4a);
     color: white;
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 2rem;
-    font-size: 2rem;
+    font-size: 2.5rem;
+    box-shadow: 0 8px 20px rgba(10, 22, 40, 0.5);
 }
 
 .progress-content h2 {
@@ -795,11 +793,11 @@ body {
 /* ===== PÁGINA DE CONFIGURACIÓN DE EMPRESA ===== */
 .company-config-content {
     background: white;
-    padding: 2rem;
+    padding: 2.5rem;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    width: 100%;
-    max-width: 600px;
+    box-shadow: 0 10px 40px rgba(10, 22, 40, 0.3);
+    width: 98%;
+    max-width: 1400px;
 }
 
 .config-header {
@@ -808,22 +806,23 @@ body {
 }
 
 .config-icon {
-    background: linear-gradient(135deg, #007ACC, #0066CC);
+    background: linear-gradient(135deg, #0a1628, #162c4a);
     color: white;
-    width: 70px;
-    height: 70px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 1.5rem;
-    font-size: 1.75rem;
+    font-size: 2.25rem;
+    box-shadow: 0 8px 20px rgba(10, 22, 40, 0.5);
 }
 
 .config-header h2 {
-    font-size: 1.75rem;
+    font-size: 2rem;
     font-weight: 600;
-    color: #007ACC;
+    color: #0a1628;
     margin-bottom: 0.5rem;
 }
 
@@ -833,11 +832,12 @@ body {
 
 /* ===== CONFIGURACIÓN DE EMPRESA ===== */
 .company-configuration {
-    background: #f0f8ff;
+    background: #ffffff;
     padding: 2rem;
     border-radius: 15px;
     margin: 2rem 0;
-    border: 2px solid #007ACC;
+    border: 2px solid #0a1628;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .config-group {
@@ -859,7 +859,7 @@ body {
 }
 
 .config-group label i {
-    color: #007ACC;
+    color: #0a1628;
     width: 18px;
 }
 
@@ -885,8 +885,8 @@ body {
 
 .select-wrapper select:focus {
     outline: none;
-    border-color: #007ACC;
-    box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.1);
+    border-color: #0a1628;
+    box-shadow: 0 0 0 3px rgba(10, 22, 40, 0.15);
     transform: translateY(-1px);
 }
 
@@ -899,7 +899,7 @@ body {
 }
 
 .select-wrapper select:hover {
-    border-color: #007ACC;
+    border-color: #0a1628;
     transform: translateY(-1px);
 }
 
@@ -908,7 +908,7 @@ body {
     right: 1rem;
     top: 50%;
     transform: translateY(-50%);
-    color: #007ACC;
+    color: #0a1628;
     pointer-events: none;
     font-size: 0.9rem;
     transition: all 0.3s ease;
@@ -945,7 +945,7 @@ body {
 }
 
 .btn-enabled {
-    background: linear-gradient(135deg, #007ACC, #0066CC) !important;
+    background: linear-gradient(135deg, #c41e3a, #a01829) !important;
     color: white !important;
     cursor: pointer !important;
 }
@@ -984,8 +984,8 @@ body {
 
 .input-wrapper input:focus {
     outline: none;
-    border-color: #007ACC;
-    box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.1);
+    border-color: #0a1628;
+    box-shadow: 0 0 0 3px rgba(10, 22, 40, 0.15);
 }
 
 .input-wrapper input::placeholder {
@@ -998,7 +998,7 @@ body {
     left: 1rem;
     top: 50%;
     transform: translateY(-50%);
-    color: #007ACC;
+    color: #0a1628;
     font-size: 1.1rem;
     pointer-events: none;
 }
@@ -1071,9 +1071,9 @@ body {
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #007ACC, #0066CC);
+    background: linear-gradient(135deg, #c41e3a, #a01829);
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 122, 204, 0.3);
+    box-shadow: 0 4px 12px rgba(196, 30, 58, 0.4);
     transition: all 0.3s ease;
 }
 
@@ -1086,10 +1086,10 @@ body {
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #007ACC, #0066CC);
+    background: linear-gradient(135deg, #c41e3a, #a01829);
     cursor: pointer;
     border: none;
-    box-shadow: 0 4px 12px rgba(0, 122, 204, 0.3);
+    box-shadow: 0 4px 12px rgba(196, 30, 58, 0.4);
 }
 
 .percentage-value {
@@ -1097,13 +1097,13 @@ body {
     padding: 1rem 2rem;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    border: 2px solid #007ACC;
+    border: 2px solid #c41e3a;
 }
 
 .percentage-value span {
     font-size: 3rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #007ACC, #0066CC);
+    background: linear-gradient(135deg, #c41e3a, #0a1628);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1127,8 +1127,8 @@ body {
 .btn-percentage {
     padding: 0.75rem 1.5rem;
     background: white;
-    color: #007ACC;
-    border: 2px solid #007ACC;
+    color: #0a1628;
+    border: 2px solid #0a1628;
     border-radius: 25px;
     font-weight: 600;
     transition: all 0.3s ease;
@@ -1136,10 +1136,10 @@ body {
 }
 
 .btn-percentage:hover {
-    background: linear-gradient(135deg, #007ACC, #0066CC);
+    background: linear-gradient(135deg, #c41e3a, #a01829);
     color: white;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 122, 204, 0.3);
+    box-shadow: 0 6px 20px rgba(196, 30, 58, 0.4);
 }
 
 .btn-start {
@@ -1147,12 +1147,12 @@ body {
     font-size: 1.2rem;
     font-weight: 600;
     border-radius: 50px;
-    background: linear-gradient(135deg, #007ACC, #0066CC);
+    background: linear-gradient(135deg, #c41e3a, #a01829);
     color: white;
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 8px 25px rgba(0, 122, 204, 0.3);
+    box-shadow: 0 8px 25px rgba(196, 30, 58, 0.4);
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -1161,7 +1161,8 @@ body {
 
 .btn-start:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 35px rgba(0, 122, 204, 0.4);
+    box-shadow: 0 12px 35px rgba(196, 30, 58, 0.5);
+    background: linear-gradient(135deg, #d4243f, #b01d2f);
 }
 
 .btn-start:active {
@@ -1231,7 +1232,7 @@ body {
 
 .linear-progress-fill {
     height: 100%;
-    background: linear-gradient(135deg, #007ACC, #0066CC);
+    background: linear-gradient(135deg, #c41e3a, #0a1628);
     width: 0%;
     transition: width 0.3s ease;
     border-radius: 10px;
@@ -1266,7 +1267,7 @@ body {
 .linear-progress-percentage {
     font-size: 2rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #007ACC, #0066CC);
+    background: linear-gradient(135deg, #c41e3a, #0a1628);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1315,8 +1316,8 @@ body {
 .control-group input:focus,
 .control-group select:focus {
     outline: none;
-    border-color: #007ACC;
-    box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.1);
+    border-color: #0a1628;
+    box-shadow: 0 0 0 3px rgba(10, 22, 40, 0.15);
 }
 
 .btn-small {
@@ -1368,7 +1369,7 @@ body {
 }
 
 .step-item.active i {
-    background: linear-gradient(135deg, #007ACC, #0066CC);
+    background: linear-gradient(135deg, #0a1628, #162c4a);
     color: white;
     animation: pulse 2s infinite;
 }
@@ -1618,11 +1619,11 @@ body {
 /* ===== PÁGINA DE PREGUNTAS ===== */
 .questions-content {
     background: white;
-    padding: 2rem;
+    padding: 2.5rem;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    max-width: 700px;
-    width: 100%;
+    box-shadow: 0 10px 40px rgba(10, 22, 40, 0.3);
+    max-width: 1800px;
+    width: 98%;
     margin: 0 auto;
 }
 
@@ -1632,19 +1633,19 @@ body {
 }
 
 .questions-icon {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, #007ACC, #0066CC);
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #0a1628, #162c4a);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 1.5rem;
-    box-shadow: 0 10px 30px rgba(0, 122, 204, 0.3);
+    box-shadow: 0 10px 30px rgba(10, 22, 40, 0.5);
 }
 
 .questions-icon i {
-    font-size: 2rem;
+    font-size: 2.5rem;
     color: white;
 }
 
@@ -1674,7 +1675,7 @@ body {
 }
 
 .question-progress .progress-fill {
-    background: linear-gradient(90deg, #007ACC, #0066CC);
+    background: linear-gradient(90deg, #c41e3a, #0a1628);
     height: 100%;
     width: 0%;
     transition: width 0.3s ease;
@@ -1689,10 +1690,11 @@ body {
 }
 
 .question-card {
-    background: #f7fafc;
+    background: #ffffff;
     padding: 2rem;
     border-radius: 16px;
     border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .question-category {
@@ -1725,7 +1727,7 @@ body {
 }
 
 .question-text {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: 600;
     color: #1A1A1A;
     line-height: 1.5;

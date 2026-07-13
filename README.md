@@ -1,219 +1,168 @@
-# 🎯 Multómetro Challenge - Calculadora de Multas AEMP
+# Multómetro MB — Calculadora de Multas AEMP
 
-Una herramienta web interactiva para estimar multas basadas en el Reglamento de Sanciones e Infracciones Comerciales y Contables (Resolución RA/AEMP/Nº009/2021).
+Calculadora web estática que estima **multas administrativas en bolivianos (Bs.)** conforme a la **Resolución RA/AEMP/Nº009/2021** — Reglamento de Sanciones e Infracciones Comerciales y Contables de la Autoridad de Fiscalización de Empresas (AEMP) de Bolivia.
 
-## 🚀 Cómo Ejecutar la Aplicación
+El usuario configura su empresa, responde un cuestionario de Sí/No sobre 48 obligaciones legales (Arts. 11–59 del reglamento) y obtiene una **multa proyectada** más un **nivel de compliance**. El resultado se genera como PDF y se envía por email o se descarga localmente.
 
-### 📋 Prerrequisitos
+Sin backend propio, sin base de datos activa, sin build. HTML + CSS + JavaScript puros.
 
-- Un navegador web moderno (Chrome, Firefox, Safari, Edge)
-- Servidor web local (opcional, pero recomendado)
+---
 
-### 🛠️ Opción 1: Ejecutar Directamente (Más Simple)
+## Documentación
 
-1. **Descarga o clona el proyecto**
+| Documento | Descripción |
+|-----------|-------------|
+| [docs/arquitectura.md](docs/arquitectura.md) | Estructura del proyecto, pantallas, ciclo de vida |
+| [docs/flujo-usuario.md](docs/flujo-usuario.md) | Las 6 pantallas paso a paso y qué se captura |
+| [docs/calculo-multa.md](docs/calculo-multa.md) | **Matemática del cálculo** con fórmulas y ejemplos |
+| [docs/preguntas.md](docs/preguntas.md) | Catálogo de las 48 preguntas y artículos |
+| [docs/reporte.md](docs/reporte.md) | Plantilla del reporte, generación PDF y envío por correo |
+| [docs/base-de-datos.md](docs/base-de-datos.md) | Schema PostgreSQL (no usado por la app) |
+| [docs/dependencias.md](docs/dependencias.md) | CDNs, jsPDF, html2canvas, endpoint Render |
+| [docs/referencias-legales.md](docs/referencias-legales.md) | Mapeo pregunta ↔ artículo del reglamento |
+| [docs/known-issues.md](docs/known-issues.md) | Bugs y comportamientos raros documentados |
 
-   ```bash
-   git clone <url-del-repositorio>
-   cd multómetro
-   ```
+---
 
-2. **Abre el archivo principal**
+## Requisitos
 
-   - Navega a la carpeta del proyecto
-   - Haz doble clic en `index.html`
-   - O arrastra el archivo a tu navegador
+- Un navegador moderno (Chrome 80+, Firefox 75+, Safari 13+, Edge 80+).
+- Conexión a internet para las fuentes, iconos, `html2canvas`, `jsPDF` y el envío del PDF por email. Sin internet la app **sí calcula la multa**, pero el reporte se genera como `.txt` en vez de PDF.
 
-3. **¡Listo!** La aplicación se ejecutará en tu navegador
+No hay `npm install` — no hay `package.json`, todas las dependencias vienen por CDN.
 
-### 🌐 Opción 2: Usar un Servidor Local (Recomendado)
+---
 
-#### Con Python (si tienes Python instalado):
+## Instalación y ejecución
 
-```bash
-# Python 3
-python -m http.server 8000
-
-# Python 2
-python -m SimpleHTTPServer 8000
-```
-
-#### Con Node.js (si tienes Node.js instalado):
+### Opción 1 — Abrir el HTML directamente
 
 ```bash
-# Instalar servidor globalmente
-npm install -g http-server
-
-# Ejecutar servidor
-http-server -p 8000
+git clone git@github.com:ricardoasinr/multometro-mb.git
+cd multometro-mb
+open index.html          # macOS
+# xdg-open index.html    # Linux
+# start index.html       # Windows
 ```
 
-#### Con PHP (si tienes PHP instalado):
+Funciona, pero algunos navegadores bloquean `fetch()` sobre `file://` — si el cuestionario no carga preguntas, usa la opción 2.
+
+### Opción 2 — Servidor local (recomendado)
+
+Con Python:
+
+```bash
+python3 -m http.server 8000
+# → http://localhost:8000
+```
+
+Con Node.js:
+
+```bash
+npx http-server -p 8000
+# → http://localhost:8000
+```
+
+Con PHP:
 
 ```bash
 php -S localhost:8000
 ```
 
-4. **Abrir en el navegador**
-   - Ve a `http://localhost:8000`
-   - La aplicación estará disponible
+---
 
-## 📁 Estructura del Proyecto
+## Estructura del proyecto
 
 ```
-multómetro/
-├── index.html          # Página principal
-├── styles.css          # Estilos CSS
-├── script.js           # Lógica JavaScript
-├── preguntas.json      # Base de datos de preguntas
-├── preguntas.csv       # Versión CSV de las preguntas
-├── database_schema.sql # Esquema de base de datos (ignorar por ahora)
-├── ejemplos_consultas.sql # Ejemplos de consultas (ignorar por ahora)
-└── README.md           # Este archivo
+multometro-mb/
+├── README.md
+├── index.html              # 6 pantallas de la SPA
+├── styles.css              # ~36 KB, tema azul-violeta + rojos
+├── script.js               # ~54 KB, toda la lógica (1503 líneas)
+├── preguntas.json          # 48 preguntas + coeficientes
+├── preguntas.csv           # Equivalente en CSV (no lo consume la app)
+├── reporte-template.html   # Plantilla PDF con placeholders {{...}}
+├── database_schema.sql     # Schema PostgreSQL (no usado — ver docs/base-de-datos.md)
+├── ejemplos_consultas.sql  # Queries de ejemplo (no usados)
+└── docs/                   # Documentación detallada
 ```
-
-## 🎮 Cómo Usar la Aplicación
-
-### 1. **Página de Bienvenida**
-
-- Lee la información sobre la herramienta
-- Haz clic en "🎯 Comenzar"
-
-### 2. **Formulario de Registro**
-
-- Completa tus datos personales:
-  - Nombre y apellidos
-  - Empresa
-  - Cargo
-  - Email
-  - Teléfono
-- Haz clic en "Continuar"
-
-### 3. **Configuración de Empresa**
-
-- Selecciona el tipo de sociedad
-- Elige la base de cálculo
-- Ingresa el monto base
-- Haz clic en "Continuar al Multómetro"
-
-### 4. **Selección de Porcentaje**
-
-- Ajusta el porcentaje de evaluación (25%, 50%, 75%, 100%)
-- O usa el slider para un valor personalizado
-- Haz clic en "Iniciar Cuestionario"
-
-### 5. **Cuestionario**
-
-- Responde las preguntas con "Sí" o "No"
-- Ve el progreso en tiempo real
-- Completa todas las preguntas
-
-### 6. **Resultados**
-
-- Revisa el resumen de tus respuestas
-- Ve el porcentaje de evaluación
-- Opción de realizar nueva evaluación
-
-## 🔧 Características Técnicas
-
-### ✅ **Funcionalidades Implementadas:**
-
-- ✅ Formulario de registro con validación
-- ✅ Configuración de empresa
-- ✅ Selección de porcentaje de evaluación
-- ✅ Cuestionario dinámico con preguntas aleatorias
-- ✅ Progreso visual en tiempo real
-- ✅ Cálculo de estadísticas
-- ✅ Diseño responsivo
-- ✅ Validación de formularios
-- ✅ Animaciones suaves
-
-### 🎨 **Diseño:**
-
-- Interfaz moderna y profesional
-- Colores corporativos
-- Iconos Font Awesome
-- Tipografía Inter
-- Diseño responsivo para móviles
-
-### 📊 **Datos:**
-
-- 170+ preguntas organizadas por categorías
-- Preguntas de Comercial y Contable
-- Selección aleatoria según porcentaje
-- Estadísticas en tiempo real
-
-## 🗄️ Base de Datos (Opcional)
-
-**Nota:** La aplicación funciona completamente sin base de datos. Los archivos `database_schema.sql` y `ejemplos_consultas.sql` son para uso futuro cuando se implemente persistencia de datos.
-
-Si quieres ignorar la base de datos por ahora:
-
-- ✅ La aplicación funciona perfectamente sin ella
-- ✅ Todos los datos se procesan en el navegador
-- ✅ No necesitas configurar PostgreSQL
-- ✅ No necesitas servidor backend
-
-## 🐛 Solución de Problemas
-
-### Problema: "No se pueden cargar las preguntas"
-
-**Solución:** Asegúrate de que el archivo `preguntas.json` esté en la misma carpeta que `index.html`
-
-### Problema: "Los estilos no se cargan"
-
-**Solución:** Verifica que `styles.css` esté en la misma carpeta
-
-### Problema: "Las funciones no funcionan"
-
-**Solución:** Abre la consola del navegador (F12) para ver errores
-
-### Problema: "No se puede acceder desde otro dispositivo"
-
-**Solución:** Usa un servidor local en lugar de abrir el archivo directamente
-
-## 📱 Compatibilidad
-
-### Navegadores Soportados:
-
-- ✅ Chrome 80+
-- ✅ Firefox 75+
-- ✅ Safari 13+
-- ✅ Edge 80+
-
-### Dispositivos:
-
-- ✅ Desktop
-- ✅ Tablet
-- ✅ Móvil
-
-## 🚀 Despliegue
-
-### Para Producción:
-
-1. Sube todos los archivos a tu servidor web
-2. Asegúrate de que `index.html` esté en la raíz
-3. Verifica que todos los archivos estén en la misma carpeta
-
-### Para Desarrollo:
-
-1. Usa un servidor local (recomendado)
-2. Mantén la estructura de carpetas
-3. Usa herramientas de desarrollo del navegador
-
-## 📞 Soporte
-
-Si tienes problemas:
-
-1. Verifica que todos los archivos estén presentes
-2. Usa un servidor local en lugar de abrir el archivo directamente
-3. Revisa la consola del navegador para errores
-4. Asegúrate de tener una conexión a internet (para fuentes y iconos)
-
-## 📄 Licencia
-
-Este proyecto es para uso educativo y de demostración.
 
 ---
 
-**¡Disfruta usando el Multómetro Challenge! 🎯**
+## Cómo funciona (resumen)
+
+1. **Bienvenida** → botón "Comenzar".
+2. **Registro** — nombre, empresa, cargo, email, teléfono.
+3. **Configuración de empresa** — tipo de sociedad, base de cálculo (Utilidad Bruta o Capital), monto base en Bs.
+   - Del monto se deriva un **rango A–F** que define los coeficientes de multa.
+4. **% de precisión** — slider 1–100. Define **cuántas preguntas del catálogo (48) se muestrean al azar**.
+5. **Cuestionario** — una pregunta por pantalla, respuesta Sí/No. Cada "No" suma multa.
+6. **Resultados** — total de Sí/No y botón para generar el reporte.
+7. **Reporte PDF** — se genera con `html2canvas` + `jsPDF` y se envía por email a `apigmail-lunw.onrender.com/send-email`, o se descarga localmente si el envío falla.
+
+Ver [docs/flujo-usuario.md](docs/flujo-usuario.md) para el detalle de cada pantalla y [docs/calculo-multa.md](docs/calculo-multa.md) para la matemática.
+
+---
+
+## Fórmula de la multa (resumen)
+
+Para cada pregunta respondida **"No"**:
+
+- **Preguntas 1, 2, 3, 4, 46, 47, 48** → multa fija en Bs. según tipo de sociedad (tabla en `calcularMultaEspecial`).
+- **Preguntas 38 y 45** → sanciones **no monetarias** (suspensión temporal o amonestación escrita); aportan 0 Bs. al total.
+- **Resto (preguntas 5–37, 39–44)** → fórmula:
+
+$$
+\text{multa}_{\text{pregunta}} = \text{baseCalculo} \times \text{montoBaseCalculo} \times \text{values}[\text{rango}]
+$$
+
+donde:
+
+- `baseCalculo = 0.8` si se eligió Utilidad Bruta, `1.0` si se eligió Capital.
+- `montoBaseCalculo` = monto ingresado por el usuario en Bs.
+- `values[rango]` = coeficiente del rango A–F declarado en `preguntas.json`.
+
+Total: suma de todas las multas parciales. Sin topes ni multiplicadores.
+
+Ver [docs/calculo-multa.md](docs/calculo-multa.md) para ejemplos completos y edge cases.
+
+---
+
+## Aviso legal
+
+Este software es una **herramienta de simulación** y **no constituye asesoría legal ni sustituye la revisión oficial de la AEMP**. Los montos calculados son estimaciones basadas en las tablas de la Resolución RA/AEMP/Nº009/2021 tal como estaban al momento de escribir este código; consulta siempre la versión vigente del reglamento y a un profesional antes de tomar decisiones.
+
+---
+
+## Persistencia
+
+**Ninguna.** Toda la sesión vive en memoria:
+
+- No hay `localStorage`, `sessionStorage`, cookies ni IndexedDB.
+- No hay backend propio.
+- El schema PostgreSQL en `database_schema.sql` está en el repo pero **no está conectado a nada** — es un roadmap. Ver [docs/base-de-datos.md](docs/base-de-datos.md).
+- Solo el **email del usuario y el PDF** se envían al endpoint remoto de correo (`apigmail-lunw.onrender.com/send-email`) al momento de generar el reporte.
+
+Recargar la página elimina toda la información capturada.
+
+---
+
+## Bugs conocidos
+
+Ver [docs/known-issues.md](docs/known-issues.md) para la lista completa. Los más importantes:
+
+- **Etiqueta invertida "Utilidad Bruta / Capital"** en el reporte PDF (el cálculo es correcto, solo la etiqueta está al revés).
+- `userData.factor` (5%, 4%, ..., 0.5%) aparece como "informativo" en el reporte pero **no interviene en la multa** — los factores reales están en los coeficientes A–F de cada pregunta.
+- El README original decía "170+ preguntas" — son **48**.
+
+---
+
+## Despliegue
+
+Al ser una web estática, se puede subir tal cual a:
+
+- Netlify / Vercel / Cloudflare Pages / GitHub Pages
+- Cualquier bucket S3 / Cloudflare R2 con hosting estático
+- Un servidor Apache / Nginx con solo copiar los archivos
+
+**Importante:** el endpoint de email `apigmail-lunw.onrender.com` está en Render free tier — la primera petición puede tardar >30 s si el servicio hibernó.
